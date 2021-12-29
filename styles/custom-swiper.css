@@ -1,0 +1,24 @@
+:root {
+  --swiper-theme-color: #FFDA44 !important;
+}
+
+
+.position-fixed {
+  position: fixed !important;
+}
+
+.swiper-pagination-bullet {
+  width: var(--swiper-pagination-bullet-width,var(--swiper-pagination-bullet-size,5px)) !important;
+  height: var(--swiper-pagination-bullet-height,var(--swiper-pagination-bullet-size,5px)) !important;
+  border-radius: 40% !important;
+}
+
+.swiper-pagination-bullet-active {
+  width: var(--swiper-pagination-bullet-width,var(--swiper-pagination-bullet-size,12px)) !important;
+  height: var(--swiper-pagination-bullet-height,var(--swiper-pagination-bullet-size,5px)) !important;
+}
+
+.swiper-horizontal>.swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal, .swiper-pagination-custom, .swiper-pagination-fraction {
+  bottom: 0px;
+  width: 100%;
+}
