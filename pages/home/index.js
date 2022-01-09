@@ -5,7 +5,14 @@ export default function Home() {
   return (
     <>
       {/* Main header */}
-      <div className="bg-img-main">
+      <div
+        style={{
+          backgroundImage: "url('/bg-main.png')",
+          backgroundSize: "cover",
+          width: "100%",
+          height: "190px",
+        }}
+      >
         <div className="mx-4 my-3">
           <div className="">
             <div className="w-1.5 h-1.5 bg-danger rounded-full relative right-0.5 top-1.5 ml-auto mr-0 z-10"></div>
@@ -33,13 +40,22 @@ export default function Home() {
       <div className="mx-4">
         <div className="relative flex w-full bg-white shadow-bottom rounded-box h-18 -top-6">
           <div className="mx-2.5 my-2.5">
-          <div className="w-full"></div>
-            <h4 className="text-yellow-main">Saldo <span><img src="logo.svg" className="w-8 inline-block -mt-0.5" /></span></h4>
+            <div className="w-full"></div>
+            <h4 className="text-yellow-main">
+              Saldo{" "}
+              <span>
+                <img src="logo.svg" className="w-8 inline-block -mt-0.5" />
+              </span>
+            </h4>
             <h2 className="text-secondary mt-0.5">Rp20.598</h2>
-            <p className="subparagraph mt-1.5 underline text-secondary"><a>Lihat histori transaksi</a></p>
+            <p className="subparagraph mt-1.5 underline text-secondary">
+              <a>Lihat histori transaksi</a>
+            </p>
           </div>
           <div className="my-auto ml-auto mr-3.5">
-            <button className="py-0.5 px-2.5 border my-auto border-yellow-main text-yellow-main rounded-full">Isi Saldo</button>
+            <button className="py-0.5 px-2.5 border my-auto border-yellow-main text-yellow-main rounded-full">
+              Isi Saldo
+            </button>
           </div>
         </div>
       </div>
