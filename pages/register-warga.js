@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Router from "next/router";
 
 import DangerInput from "components/atoms/DangerInput";
 import SmallButton from "components/atoms/SmallButton";

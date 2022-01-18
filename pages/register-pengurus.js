@@ -6,6 +6,20 @@ import DangerInput from "components/atoms/DangerInput";
 import BackButton from "components/atoms/BackButton";
 
 export default function Register() {
+  const [inputFields, setInputFields] = useState({
+    areaType: "",
+    areaName: "",
+    provinsi: "",
+    kota: "",
+    kecamatan: "",
+    kelurahan: "",
+    areaAddress: "",
+    name: "",
+    email: "",
+    phone: "",
+    password: "",
+    address: "",
+  });
   const [provinsiOption, setProvinsiOption] = useState({
     data: [],
     choosenData: "",
@@ -34,6 +48,27 @@ export default function Register() {
       isValid: true,
     },
   });
+
+  const inputTextHandler = (e) => {
+    const getInputText = e.target.getAttribute("name");
+
+    setInputFields({
+      ...inputFields,
+      [getInputText]: e.target.value,
+    });
+  };
+
+  const submitFormHandler = async (e) => {
+    e.preventDefault();
+
+    const api = "";
+    const headers = {
+      Authorization: "Bearer MY_TOKEN",
+      "Content-Type": "application/json"
+    };
+    const request = await axios.post(api, inputFields, { headers });
+    console.log(request);
+  };
 
   const regexEmail = (email) => {
     return email.match(
@@ -83,7 +118,7 @@ export default function Register() {
     }
   };
 
-  // Fetching the area data
+  // Fetching the area provinsi data
   useEffect(() => {
     const getAllProvince = async () => {
       try {
@@ -103,6 +138,7 @@ export default function Register() {
     getAllProvince();
   }, []);
 
+  // Get kabupaten data by provinsi id
   useEffect(() => {
     const getAllKabupaten = async () => {
       try {
@@ -121,6 +157,7 @@ export default function Register() {
     getAllKabupaten();
   }, [provinsiOption]);
 
+  // Get kecamatan data by kabupaten id
   useEffect(() => {
     const getAllKecamatan = async () => {
       try {
@@ -139,6 +176,7 @@ export default function Register() {
     getAllKecamatan();
   }, [kabupatenOption]);
 
+  // Get kelurahan data by kecamatan id
   useEffect(() => {
     const getAllKelurahan = async () => {
       try {
@@ -179,6 +217,7 @@ export default function Register() {
             id="areaType"
             name="areaType"
             className="py-1.5 bg-white border-b-2 text-black-main opacity-70 text-sm font-semibold focus:outline-none focus:border-yellow-main"
+            onChange={inputTextHandler}
           >
             <option disabled selected>
               Pilih jenis area
@@ -197,6 +236,7 @@ export default function Register() {
             name="areaName"
             className="py-1.5 border-b-2 placeholder-black-main opacity-70 text-sm font-semibold capitalize focus:outline-none focus:border-yellow-main"
             placeholder="Ex: Cluster Palem Hijau"
+            onChange={inputTextHandler}
           />
         </div>
 
@@ -211,7 +251,7 @@ export default function Register() {
             id="provinsi"
             name="provinsi"
             className="py-1.5 bg-white border-b-2 text-black-main opacity-70 text-sm font-semibold focus:outline-none focus:border-yellow-main"
-            onChange={() => {
+            onChange={(e) => {
               const name = document.getElementById("provinsi");
               const value = name.value;
 
@@ -224,6 +264,8 @@ export default function Register() {
                 choosenData: value,
                 id: id[0].id,
               });
+
+              inputTextHandler(e);
             }}
           >
             <option disabled selected>
@@ -243,7 +285,7 @@ export default function Register() {
             id="kota"
             name="kota"
             className="py-1.5 bg-white border-b-2 text-black-main opacity-70 text-sm font-semibold focus:outline-none focus:border-yellow-main"
-            onChange={() => {
+            onChange={(e) => {
               const name = document.getElementById("kota");
               const value = name.value;
 
@@ -256,6 +298,8 @@ export default function Register() {
                 choosenData: value,
                 id: id[0].id,
               });
+
+              inputTextHandler(e);
             }}
           >
             <option disabled selected>
@@ -275,7 +319,7 @@ export default function Register() {
             id="kecamatan"
             name="kecamatan"
             className="py-1.5 bg-white border-b-2 text-black-main opacity-70 text-sm font-semibold focus:outline-none focus:border-yellow-main"
-            onChange={() => {
+            onChange={(e) => {
               const name = document.getElementById("kecamatan");
               const value = name.value;
 
@@ -288,6 +332,8 @@ export default function Register() {
                 choosenData: value,
                 id: id[0].id,
               });
+
+              inputTextHandler(e);
             }}
           >
             <option disabled selected>
@@ -307,8 +353,11 @@ export default function Register() {
             id="kelurahan"
             name="kelurahan"
             className="py-1.5 bg-white border-b-2 text-black-main opacity-70 text-sm font-semibold focus:outline-none focus:border-yellow-main"
+            onChange={inputTextHandler}
           >
-            <option disabled selected>Pilih kelurahan</option>
+            <option disabled selected>
+              Pilih kelurahan
+            </option>
             {kelurahanOption.data.map((kelurahan) => (
               <option key={kelurahan.id} value={kelurahan.name}>
                 {kelurahan.name}
@@ -325,6 +374,7 @@ export default function Register() {
             name="areaAddress"
             className="py-1.5 border-b-2 placeholder-black-main opacity-70 text-sm font-semibold focus:outline-none focus:border-yellow-main"
             placeholder="Ex: Jl. Muria Blok E"
+            onChange={inputTextHandler}
           />
         </div>
 
@@ -340,6 +390,7 @@ export default function Register() {
             name="name"
             className="py-1.5 border-b-2 placeholder-black-main opacity-70 text-sm font-semibold capitalize focus:outline-none focus:border-yellow-main"
             placeholder="Ex: Wahyu Saputra"
+            onChange={inputTextHandler}
           />
         </div>
 
@@ -351,7 +402,10 @@ export default function Register() {
             name="email"
             className="py-1.5 border-b-2 placeholder-black-main opacity-70 text-sm font-semibold focus:outline-none focus:border-yellow-main"
             placeholder="Ex: nama@email.com"
-            onChange={() => validateEmail()}
+            onChange={(e) => {
+              validateEmail();
+              inputTextHandler(e);
+            }}
           />
 
           {/* Danger notification */}
@@ -369,7 +423,10 @@ export default function Register() {
             name="phone"
             className="py-1.5 border-b-2 placeholder-black-main opacity-70 text-sm font-semibold focus:outline-none focus:border-yellow-main"
             placeholder="Ex: 085xxxxxxxx"
-            onChange={() => validatePhone()}
+            onChange={(e) => {
+              validatePhone();
+              inputTextHandler(e);
+            }}
           />
 
           {/* Danger notification */}
@@ -387,6 +444,7 @@ export default function Register() {
             name="password"
             className="py-1.5 border-b-2 placeholder-black-main opacity-70 text-sm font-semibold focus:outline-none focus:border-yellow-main"
             placeholder="Masukkan password"
+            onChange={inputTextHandler}
           />
         </div>
 
@@ -398,16 +456,13 @@ export default function Register() {
             name="address"
             className="py-1.5 border-b-2 placeholder-black-main opacity-70 text-sm font-semibold focus:outline-none focus:border-yellow-main"
             placeholder="Ex: Jl. Muria Blok E2 no. 19 RT 13 RW 04"
+            onChange={inputTextHandler}
           />
         </div>
 
         {/* Register button */}
         <div className="mt-9">
-          {/* <div
-          className="w-32 h-32 bg-yellow-main"
-          onClick={getAllProvince}
-        ></div> */}
-          <SmallButton message="Daftar" />
+          <SmallButton message="Daftar" onClick={submitFormHandler} />
         </div>
 
         {/* Plus div */}

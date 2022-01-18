@@ -3,14 +3,13 @@ import SwiperCore, { FreeMode } from "swiper";
 
 import MenuBar from "components/organisms/MenuBar";
 
-
 // install Swiper modules
 SwiperCore.use([FreeMode]);
 
 export default function Home() {
   const firstName = "Wahyu";
   const monthlyBill = "Rp120.000";
-  const wallet = "Rp20.598"
+  const wallet = "Rp20.598";
 
   return (
     <>
@@ -153,23 +152,28 @@ export default function Home() {
 
         {/* Banner swipe */}
         <div className="mt-6">
-          <Swiper spaceBetween={15} slidesPerView={1.4} freeMode={true} className="mySwiper">
+          <Swiper
+            slidesPerView={1.2}
+            spaceBetween={15}
+            freeMode={true}
+            className="mySwiper"
+          >
             <SwiperSlide>
-              <div className="w-70 h-23 bg-yellow-main rounded-box">
+              <div className="h-23 bg-yellow-main rounded-box">
                 <p className="subparagraph text-white text-center h-full">
                   Banner
                 </p>
               </div>
             </SwiperSlide>
             <SwiperSlide>
-              <div className="w-70 h-23 bg-yellow-main rounded-box">
+              <div className="h-23 bg-yellow-main rounded-box">
                 <p className="subparagraph text-white text-center h-full">
                   Banner
                 </p>
               </div>
             </SwiperSlide>
             <SwiperSlide>
-              <div className="w-70 h-23 bg-yellow-main rounded-box">
+              <div className="h-23 bg-yellow-main rounded-box">
                 <p className="subparagraph text-white text-center h-full">
                   Banner
                 </p>
@@ -205,7 +209,7 @@ export default function Home() {
           <div className="flex w-full border-2 border-gray-icon mt-2.5 rounded-box min-h-history-box">
             <div className="mx-2.5 my-2.5">
               <p className="subparagraph font-semibold">
-              Tagihan air & sampah (Desember)
+                Tagihan air & sampah (Desember)
               </p>
               <p className="text-8px text-gray-history">3 Desember 2021</p>
             </div>
@@ -223,7 +227,7 @@ export default function Home() {
 
         <div className="h-16"></div>
 
-        <MenuBar />
+        <MenuBar currentPage="home" />
       </div>
     </>
   );

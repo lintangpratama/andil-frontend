@@ -1,7 +1,9 @@
 import Image from "next/image";
+import Link from "next/link";
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Pagination } from "swiper";
-import Link from "next/link";
+
 
 // install Swiper modules
 SwiperCore.use([Pagination]);

@@ -29,7 +29,7 @@ module.exports = {
       },
       colors: {
         secondary: "#404040",
-        bar: "rgba(31, 31, 31, 0.5)",
+        bar: "rgba(31, 31, 31, 0.8)",
         "yellow-main": "#FFDA44",
         "black-main": "#1F1F1F",
         danger: "#E34141",
