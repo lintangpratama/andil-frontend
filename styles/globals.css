@@ -81,6 +81,14 @@ label {
   font-size: 9px;
 }
 
+.mt-1px {
+  margin-top: 1px;
+}
+
+.text-8px {
+  font-size: 8px;
+}
+
 .horizontal-center {
   position: relative;
   left: 50%;

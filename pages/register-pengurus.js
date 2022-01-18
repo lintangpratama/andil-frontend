@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 import SmallButton from "components/atoms/SmallButton";
@@ -6,6 +6,26 @@ import DangerInput from "components/atoms/DangerInput";
 import BackButton from "components/atoms/BackButton";
 
 export default function Register() {
+  const [provinsiOption, setProvinsiOption] = useState({
+    data: [],
+    choosenData: "",
+    id: 0,
+  });
+  const [kabupatenOption, setKabupatenOption] = useState({
+    data: [],
+    choosenData: "",
+    id: 0,
+  });
+  const [kecamatanOption, setKecamatanOption] = useState({
+    data: [],
+    choosenData: "",
+    id: 0,
+  });
+  const [kelurahanOption, setKelurahanOption] = useState({
+    data: [],
+    choosenData: "",
+    id: 0,
+  });
   const [validateInput, setValidateInput] = useState({
     phone: {
       isValid: true,
@@ -63,14 +83,79 @@ export default function Register() {
     }
   };
 
-  const getAllProvince = async () => {
-    try {
-      const response = await axios.get("https://area.nyandev.id/provinsi.json");
-      console.log(response);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // Fetching the area data
+  useEffect(() => {
+    const getAllProvince = async () => {
+      try {
+        const response = await axios.get(
+          "https://area.nyandev.id/provinsi.json"
+        );
+        const data = response.data;
+        setProvinsiOption({
+          ...provinsiOption,
+          data: data,
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    getAllProvince();
+  }, []);
+
+  useEffect(() => {
+    const getAllKabupaten = async () => {
+      try {
+        const response = await axios.get(
+          `https://area.nyandev.id/provinsi/${provinsiOption.id}/kabupaten.json`
+        );
+        const data = response.data;
+        setKabupatenOption({
+          ...kabupatenOption,
+          data: data,
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getAllKabupaten();
+  }, [provinsiOption]);
+
+  useEffect(() => {
+    const getAllKecamatan = async () => {
+      try {
+        const response = await axios.get(
+          `https://area.nyandev.id/provinsi/kabupaten/${kabupatenOption.id}/kecamatan.json`
+        );
+        const data = response.data;
+        setKecamatanOption({
+          ...kecamatanOption,
+          data: data,
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getAllKecamatan();
+  }, [kabupatenOption]);
+
+  useEffect(() => {
+    const getAllKelurahan = async () => {
+      try {
+        const response = await axios.get(
+          `https://area.nyandev.id/provinsi/kabupaten/kecamatan/${kecamatanOption.id}/kelurahan.json`
+        );
+        const data = response.data;
+        setKelurahanOption({
+          ...kelurahanOption,
+          data: data,
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getAllKelurahan();
+  }, [kecamatanOption]);
 
   return (
     <>
@@ -95,7 +180,9 @@ export default function Register() {
             name="areaType"
             className="py-1.5 bg-white border-b-2 text-black-main opacity-70 text-sm font-semibold focus:outline-none focus:border-yellow-main"
           >
-            <option disabled selected></option>
+            <option disabled selected>
+              Pilih jenis area
+            </option>
             <option value="rt">Rukun Tetangga (RT)</option>
             <option value="rw">Rukun Warga (RW)</option>
             <option value="perumahan">Perumahan atau Cluster</option>
@@ -124,24 +211,61 @@ export default function Register() {
             id="provinsi"
             name="provinsi"
             className="py-1.5 bg-white border-b-2 text-black-main opacity-70 text-sm font-semibold focus:outline-none focus:border-yellow-main"
+            onChange={() => {
+              const name = document.getElementById("provinsi");
+              const value = name.value;
+
+              const id = provinsiOption.data.filter((provinsi) => {
+                return provinsi.name == value;
+              });
+
+              setProvinsiOption({
+                ...provinsiOption,
+                choosenData: value,
+                id: id[0].id,
+              });
+            }}
           >
-            <option disabled selected></option>
+            <option disabled selected>
+              Pilih provinsi
+            </option>
+            {provinsiOption.data.map((provinsi) => (
+              <option key={provinsi.id} value={provinsi.name}>
+                {provinsi.name}
+              </option>
+            ))}
           </select>
         </div>
 
-        {console.log(getAllProvince())}
         <div className="flex flex-col mt-4">
           <label className="mb-1">Kabupaten/Kota</label>
           <select
             id="kota"
             name="kota"
             className="py-1.5 bg-white border-b-2 text-black-main opacity-70 text-sm font-semibold focus:outline-none focus:border-yellow-main"
+            onChange={() => {
+              const name = document.getElementById("kota");
+              const value = name.value;
+
+              const id = kabupatenOption.data.filter((kabupaten) => {
+                return kabupaten.name == value;
+              });
+
+              setKabupatenOption({
+                ...kabupatenOption,
+                choosenData: value,
+                id: id[0].id,
+              });
+            }}
           >
-            <option disabled selected></option>
-            <option value="rt">Rukun Tetangga (RT)</option>
-            <option value="rw">Rukun Warga (RW)</option>
-            <option value="perumahan">Perumahan atau Cluster</option>
-            <option value="apartemen">Apartemen</option>
+            <option disabled selected>
+              Pilih kabupaten/kota
+            </option>
+            {kabupatenOption.data.map((kabupaten) => (
+              <option key={kabupaten.id} value={kabupaten.name}>
+                {kabupaten.name}
+              </option>
+            ))}
           </select>
         </div>
 
@@ -151,12 +275,29 @@ export default function Register() {
             id="kecamatan"
             name="kecamatan"
             className="py-1.5 bg-white border-b-2 text-black-main opacity-70 text-sm font-semibold focus:outline-none focus:border-yellow-main"
+            onChange={() => {
+              const name = document.getElementById("kecamatan");
+              const value = name.value;
+
+              const id = kecamatanOption.data.filter((kecamatan) => {
+                return kecamatan.name == value;
+              });
+
+              setKecamatanOption({
+                ...kecamatanOption,
+                choosenData: value,
+                id: id[0].id,
+              });
+            }}
           >
-            <option disabled selected></option>
-            <option value="rt">Rukun Tetangga (RT)</option>
-            <option value="rw">Rukun Warga (RW)</option>
-            <option value="perumahan">Perumahan atau Cluster</option>
-            <option value="apartemen">Apartemen</option>
+            <option disabled selected>
+              Pilih kecamatan
+            </option>
+            {kecamatanOption.data.map((kecamatan) => (
+              <option key={kecamatan.id} value={kecamatan.name}>
+                {kecamatan.name}
+              </option>
+            ))}
           </select>
         </div>
 
@@ -167,11 +308,12 @@ export default function Register() {
             name="kelurahan"
             className="py-1.5 bg-white border-b-2 text-black-main opacity-70 text-sm font-semibold focus:outline-none focus:border-yellow-main"
           >
-            <option disabled selected></option>
-            <option value="rt">Rukun Tetangga (RT)</option>
-            <option value="rw">Rukun Warga (RW)</option>
-            <option value="perumahan">Perumahan atau Cluster</option>
-            <option value="apartemen">Apartemen</option>
+            <option disabled selected>Pilih kelurahan</option>
+            {kelurahanOption.data.map((kelurahan) => (
+              <option key={kelurahan.id} value={kelurahan.name}>
+                {kelurahan.name}
+              </option>
+            ))}
           </select>
         </div>
 

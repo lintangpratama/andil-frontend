@@ -1,6 +1,16 @@
+import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, { FreeMode } from "swiper";
+
+import MenuBar from "components/organisms/MenuBar";
+
+
+// install Swiper modules
+SwiperCore.use([FreeMode]);
+
 export default function Home() {
   const firstName = "Wahyu";
   const monthlyBill = "Rp120.000";
+  const wallet = "Rp20.598"
 
   return (
     <>
@@ -40,14 +50,13 @@ export default function Home() {
       <div className="mx-4">
         <div className="relative flex w-full bg-white shadow-bottom rounded-box h-18 -top-6">
           <div className="mx-2.5 my-2.5">
-            <div className="w-full"></div>
             <h4 className="text-yellow-main">
               Saldo{" "}
               <span>
                 <img src="logo.svg" className="w-8 inline-block -mt-0.5" />
               </span>
             </h4>
-            <h2 className="text-secondary mt-0.5">Rp20.598</h2>
+            <h2 className="text-secondary mt-0.5">{wallet}</h2>
             <p className="subparagraph mt-1.5 underline text-secondary">
               <a>Lihat histori transaksi</a>
             </p>
@@ -58,6 +67,163 @@ export default function Home() {
             </button>
           </div>
         </div>
+
+        {/* Main categories */}
+        <div className="grid grid-cols-4 gap-9 mx-8 mt-1">
+          {/* Pulsa */}
+          <div>
+            <div className="flex items-center w-10 h-10 bg-blue-icon mx-auto rounded-box">
+              <img
+                src="/credit.png"
+                alt="credit icon"
+                className="w-8 mx-auto"
+              ></img>
+            </div>
+            <p className="text-center subparagraph mt-1">Pulsa</p>
+          </div>
+
+          {/* Listrik */}
+          <div>
+            <div className="flex items-center w-10 h-10 bg-yellow-icon mx-auto rounded-box">
+              <img
+                src="/electric.png"
+                alt="electric icon"
+                className="w-8 mx-auto"
+              ></img>
+            </div>
+            <p className="text-center subparagraph mt-1">Listrik</p>
+          </div>
+
+          {/* Internet */}
+          <div>
+            <div className="flex items-center w-10 h-10 bg-blue-icon mx-auto rounded-box">
+              <img
+                src="/wifi.png"
+                alt="wifi icon"
+                className="w-8 mx-auto"
+              ></img>
+            </div>
+            <p className="text-center subparagraph mt-1">Internet</p>
+          </div>
+
+          {/* Kos */}
+          <div>
+            <div className="flex items-center w-10 h-10 bg-yellow-icon mx-auto rounded-box">
+              <img
+                src="/building.png"
+                alt="building icon"
+                className="w-8 mx-auto"
+              ></img>
+            </div>
+            <p className="text-center subparagraph mt-1">Kos</p>
+          </div>
+
+          <div>
+            <div className="flex items-center w-10 h-10 bg-blue-icon mx-auto rounded-box">
+              {/* img */}
+            </div>
+            <p className="text-center subparagraph mt-1">Lorem</p>
+          </div>
+
+          <div>
+            <div className="flex items-center w-10 h-10 bg-blue-icon mx-auto rounded-box">
+              {/* img */}
+            </div>
+            <p className="text-center subparagraph mt-1">Lorem</p>
+          </div>
+
+          <div>
+            <div className="flex items-center w-10 h-10 bg-blue-icon mx-auto rounded-box">
+              {/* img */}
+            </div>
+            <p className="text-center subparagraph mt-1">Lorem</p>
+          </div>
+
+          <div>
+            <div className="flex items-center w-10 h-10 bg-gray-icon mx-auto rounded-box">
+              <img
+                src="/more-icon.png"
+                alt="more icon"
+                className="w-8 mx-auto mt-1"
+              ></img>
+            </div>
+            <p className="text-center subparagraph mt-1">Lainnya</p>
+          </div>
+        </div>
+
+        {/* Banner swipe */}
+        <div className="mt-6">
+          <Swiper spaceBetween={15} slidesPerView={1.4} freeMode={true} className="mySwiper">
+            <SwiperSlide>
+              <div className="w-70 h-23 bg-yellow-main rounded-box">
+                <p className="subparagraph text-white text-center h-full">
+                  Banner
+                </p>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div className="w-70 h-23 bg-yellow-main rounded-box">
+                <p className="subparagraph text-white text-center h-full">
+                  Banner
+                </p>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div className="w-70 h-23 bg-yellow-main rounded-box">
+                <p className="subparagraph text-white text-center h-full">
+                  Banner
+                </p>
+              </div>
+            </SwiperSlide>
+          </Swiper>
+        </div>
+
+        {/* Riwayat transaksi */}
+        <div className="mt-6 mb-1">
+          <h3>Riwayat Transaksi</h3>
+
+          {/* Box history */}
+          <div className="flex w-full border-2 border-gray-icon mt-2.5 rounded-box">
+            <div className="mx-2.5 my-2.5">
+              <p className="subparagraph font-semibold">
+                Pulsa Telkomsel 50.000
+              </p>
+              <p className="text-8px text-gray-history">081312458192</p>
+              <p className="text-8px text-gray-history">3 Januari 2022</p>
+            </div>
+            <div className="my-auto ml-auto mr-2.5 text-right">
+              <p className="subparagraph font-semibold">Rp51.500</p>
+              <p className="text-8px font-medium text-success flex mt-0.5">
+                <span className="mr-0.5 mt-1px">
+                  <img src="success-icon.svg" alt="success icon"></img>
+                </span>
+                Berhasil
+              </p>
+            </div>
+          </div>
+
+          <div className="flex w-full border-2 border-gray-icon mt-2.5 rounded-box min-h-history-box">
+            <div className="mx-2.5 my-2.5">
+              <p className="subparagraph font-semibold">
+              Tagihan air & sampah (Desember)
+              </p>
+              <p className="text-8px text-gray-history">3 Desember 2021</p>
+            </div>
+            <div className="my-auto ml-auto mr-2.5 text-right">
+              <p className="subparagraph font-semibold">Rp51.500</p>
+              <p className="text-8px font-medium text-success flex mt-0.5">
+                <span className="mr-0.5 mt-1px">
+                  <img src="success-icon.svg" alt="success icon"></img>
+                </span>
+                Berhasil
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="h-16"></div>
+
+        <MenuBar />
       </div>
     </>
   );
