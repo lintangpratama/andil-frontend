@@ -2,11 +2,33 @@ import { useState } from "react";
 
 import BackButton from "components/atoms/BackButton";
 
+
 export default function Login() {
-  const [fields, setFields] = useState({
+  const [inputFields, setInputFields] = useState({
     email: "",
     password: "",
   });
+
+  const inputTextHandler = (e) => {
+    const getInputText = e.target.getAttribute("name");
+
+    setInputFields({
+      ...inputFields,
+      [getInputText]: e.target.value,
+    });
+  };
+
+  const submitFormHandler = async (e) => {
+    e.preventDefault();
+
+    const api = "";
+    const headers = {
+      Authorization: "Bearer MY_TOKEN",
+      "Content-Type": "application/json",
+    };
+    const request = await axios.post(api, inputFields, { headers });
+    console.log(request);
+  };
 
   return (
     <>
@@ -31,7 +53,10 @@ export default function Login() {
             name="email"
             className="py-1.5 border-b-2 placeholder-black-main opacity-70 text-sm font-semibold focus:outline-none focus:border-yellow-main"
             placeholder="Ex: nama@email.com atau 085xxxxxxxx"
-            onChange={() => validateEmail()}
+            onChange={(e) => {
+              validateEmail();
+              inputTextHandler(e);
+            }}
           />
         </div>
 
@@ -44,12 +69,13 @@ export default function Login() {
             name="password"
             className="py-1.5 border-b-2 placeholder-black-main opacity-70 text-sm font-semibold focus:outline-none focus:border-yellow-main"
             placeholder="Masukkan password"
+            onChange={inputTextHandler}
           />
         </div>
 
         {/* Button masuk */}
         <div className="mt-9">
-          <button className="text-white bg-yellow-main py-3 w-full rounded-full">
+          <button onClick={submitFormHandler} className="text-white bg-yellow-main py-3 w-full rounded-full">
             Masuk
           </button>
         </div>

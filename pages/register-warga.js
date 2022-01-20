@@ -5,6 +5,12 @@ import SmallButton from "components/atoms/SmallButton";
 import BackButton from "components/atoms/BackButton";
 
 export default function Register() {
+  const [inputFields, setInputFields] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    password: "",
+  });
   const [validateInput, setValidateInput] = useState({
     phone: {
       isValid: true,
@@ -53,7 +59,6 @@ export default function Register() {
         },
       });
     } else {
-      console.log("Haha");
       setValidateInput({
         ...validateInput,
         phone: {
@@ -61,6 +66,27 @@ export default function Register() {
         },
       });
     }
+  };
+
+  const inputTextHandler = (e) => {
+    const getInputText = e.target.getAttribute("name");
+
+    setInputFields({
+      ...inputFields,
+      [getInputText]: e.target.value,
+    });
+  };
+
+  const submitFormHandler = async (e) => {
+    e.preventDefault();
+
+    const api = "";
+    const headers = {
+      Authorization: "Bearer MY_TOKEN",
+      "Content-Type": "application/json",
+    };
+    const request = await axios.post(api, inputFields, { headers });
+    console.log(request);
   };
 
   return (
@@ -83,6 +109,7 @@ export default function Register() {
             name="name"
             className="py-1.5 border-b-2 placeholder-black-main opacity-70 text-sm font-semibold capitalize focus:outline-none focus:border-yellow-main"
             placeholder="Ex: Wahyu Saputra"
+            onChange={inputTextHandler}
           />
         </div>
 
@@ -94,7 +121,10 @@ export default function Register() {
             name="email"
             className="py-1.5 border-b-2 placeholder-black-main opacity-70 text-sm font-semibold focus:outline-none focus:border-yellow-main"
             placeholder="Ex: nama@email.com"
-            onChange={() => validateEmail()}
+            onChange={(e) => {
+              validateEmail();
+              inputTextHandler(e);
+            }}
           />
 
           {/* Danger notification */}
@@ -112,7 +142,10 @@ export default function Register() {
             name="phone"
             className="py-1.5 border-b-2 placeholder-black-main opacity-70 text-sm font-semibold focus:outline-none focus:border-yellow-main"
             placeholder="Ex: 085xxxxxxxx"
-            onChange={() => validatePhone()}
+            onChange={(e) => {
+              validatePhone();
+              inputTextHandler(e);
+            }}
           />
 
           {/* Danger notification */}
@@ -130,6 +163,7 @@ export default function Register() {
             name="password"
             className="py-1.5 border-b-2 placeholder-black-main opacity-70 text-sm font-semibold focus:outline-none focus:border-yellow-main"
             placeholder="Masukkan password"
+            onChange={inputTextHandler}
           />
         </div>
 
@@ -141,13 +175,13 @@ export default function Register() {
             name="refCode"
             className="py-1.5 border-b-2 placeholder-black-main opacity-70 text-sm font-semibold focus:outline-none focus:border-yellow-main"
             placeholder="Masukkan kode referral"
-            onChange={() => validateEmail()}
+            onChange={inputTextHandler}
           />
         </div>
 
         {/* Register button */}
         <div className="mt-9">
-          <SmallButton message="Daftar" />
+          <SmallButton message="Daftar" onSubmit={submitFormHandler} />
         </div>
       </div>
     </>
