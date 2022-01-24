@@ -1,9 +1,13 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 import BackButton from "components/atoms/BackButton";
 
 
 export default function Login() {
+  const router = useRouter();
   const [inputFields, setInputFields] = useState({
     email: "",
     password: "",
@@ -21,13 +25,19 @@ export default function Login() {
   const submitFormHandler = async (e) => {
     e.preventDefault();
 
-    const api = "";
-    const headers = {
-      Authorization: "Bearer MY_TOKEN",
-      "Content-Type": "application/json",
-    };
-    const request = await axios.post(api, inputFields, { headers });
-    console.log(request);
+    try {
+      const api = "https://andil-go-api.herokuapp.com/pengurus/login";
+      const request = await axios.post(api, JSON.stringify(inputFields));
+      console.log(request.data.token);
+
+      // Set the auth cookie
+      Cookies.set("user_cookie", request.data.token);
+
+      // Redirect the page to home page
+      router.push("/home/");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -54,7 +64,6 @@ export default function Login() {
             className="py-1.5 border-b-2 placeholder-black-main opacity-70 text-sm font-semibold focus:outline-none focus:border-yellow-main"
             placeholder="Ex: nama@email.com atau 085xxxxxxxx"
             onChange={(e) => {
-              validateEmail();
               inputTextHandler(e);
             }}
           />
@@ -75,7 +84,10 @@ export default function Login() {
 
         {/* Button masuk */}
         <div className="mt-9">
-          <button onClick={submitFormHandler} className="text-white bg-yellow-main py-3 w-full rounded-full">
+          <button
+            onClick={submitFormHandler}
+            className="text-white bg-yellow-main py-3 w-full rounded-full"
+          >
             Masuk
           </button>
         </div>
