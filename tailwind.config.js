@@ -47,7 +47,8 @@ module.exports = {
       fontSize: {},
       margin: {
         "-0.5": "-2px",
-        8: "30px",
+        "1/5": "20%",
+        "8": "30px",
       },
       // Text Color
       textColor: {},

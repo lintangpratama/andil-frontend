@@ -7,18 +7,20 @@ import BackButton from "components/atoms/BackButton";
 
 export default function Register() {
   const [inputFields, setInputFields] = useState({
-    areaType: "",
-    areaName: "",
-    provinsi: "",
-    kota: "",
-    kecamatan: "",
-    kelurahan: "",
-    areaAddress: "",
-    name: "",
+    jenis_area: "",
+    nama_area: "",
+    nama_provinsi: "",
+    nama_kota: "",
+    nama_kecamatan: "",
+    nama_kelurahan: "",
+    no_rt: "",
+    no_rw: "",
+    no_kodepos: "",
+    nama: "",
     email: "",
-    phone: "",
+    no_handphone: "",
     password: "",
-    address: "",
+    alamat_rumah: "",
   });
   const [provinsiOption, setProvinsiOption] = useState({
     data: [],
@@ -61,13 +63,13 @@ export default function Register() {
   const submitFormHandler = async (e) => {
     e.preventDefault();
 
-    const api = "";
-    const headers = {
-      Authorization: "Bearer MY_TOKEN",
-      "Content-Type": "application/json"
-    };
-    const request = await axios.post(api, inputFields, { headers });
-    console.log(request);
+    try {
+      const api = "https://andil-go-api.herokuapp.com/pengurus/";
+      const request = await axios.post(api, inputFields);
+      console.log(request);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const regexEmail = (email) => {
@@ -214,8 +216,8 @@ export default function Register() {
         <div className="flex flex-col">
           <label className="mb-1">Jenis Area</label>
           <select
-            id="areaType"
-            name="areaType"
+            id="jenis_area"
+            name="jenis_area"
             className="py-1.5 bg-white border-b-2 text-black-main opacity-70 text-sm font-semibold focus:outline-none focus:border-yellow-main"
             onChange={inputTextHandler}
           >
@@ -232,8 +234,8 @@ export default function Register() {
         <div className="flex flex-col mt-4">
           <label className="mb-1">Nama Area</label>
           <input
-            id="areaName"
-            name="areaName"
+            id="nama_area"
+            name="nama_area"
             className="py-1.5 border-b-2 placeholder-black-main opacity-70 text-sm font-semibold capitalize focus:outline-none focus:border-yellow-main"
             placeholder="Ex: Cluster Palem Hijau"
             onChange={inputTextHandler}
@@ -248,8 +250,8 @@ export default function Register() {
         <div className="flex flex-col">
           <label className="mb-1">Provinsi</label>
           <select
-            id="provinsi"
-            name="provinsi"
+            id="nama_provinsi"
+            name="nama_provinsi"
             className="py-1.5 bg-white border-b-2 text-black-main opacity-70 text-sm font-semibold focus:outline-none focus:border-yellow-main"
             onChange={(e) => {
               const name = document.getElementById("provinsi");
@@ -282,8 +284,8 @@ export default function Register() {
         <div className="flex flex-col mt-4">
           <label className="mb-1">Kabupaten/Kota</label>
           <select
-            id="kota"
-            name="kota"
+            id="nama_kota"
+            name="nama_kota"
             className="py-1.5 bg-white border-b-2 text-black-main opacity-70 text-sm font-semibold focus:outline-none focus:border-yellow-main"
             onChange={(e) => {
               const name = document.getElementById("kota");
@@ -316,8 +318,8 @@ export default function Register() {
         <div className="flex flex-col mt-4">
           <label className="mb-1">Kecamatan</label>
           <select
-            id="kecamatan"
-            name="kecamatan"
+            id="nama_kecamatan"
+            name="nama_kecamatan"
             className="py-1.5 bg-white border-b-2 text-black-main opacity-70 text-sm font-semibold focus:outline-none focus:border-yellow-main"
             onChange={(e) => {
               const name = document.getElementById("kecamatan");
@@ -350,8 +352,8 @@ export default function Register() {
         <div className="flex flex-col mt-4">
           <label className="mb-1">Kelurahan/Desa</label>
           <select
-            id="kelurahan"
-            name="kelurahan"
+            id="nama_kelurahan"
+            name="nama_kelurahan"
             className="py-1.5 bg-white border-b-2 text-black-main opacity-70 text-sm font-semibold focus:outline-none focus:border-yellow-main"
             onChange={inputTextHandler}
           >
@@ -370,8 +372,8 @@ export default function Register() {
           <label className="mb-1">Alamat Area</label>
           <input
             type="text"
-            id="areaAddress"
-            name="areaAddress"
+            id="alamat_rumah"
+            name="alamat_rumah"
             className="py-1.5 border-b-2 placeholder-black-main opacity-70 text-sm font-semibold focus:outline-none focus:border-yellow-main"
             placeholder="Ex: Jl. Muria Blok E"
             onChange={inputTextHandler}
@@ -386,8 +388,8 @@ export default function Register() {
         <div className="flex flex-col mt-4">
           <label className="mb-1">Nama</label>
           <input
-            id="name"
-            name="name"
+            id="nama"
+            name="nama"
             className="py-1.5 border-b-2 placeholder-black-main opacity-70 text-sm font-semibold capitalize focus:outline-none focus:border-yellow-main"
             placeholder="Ex: Wahyu Saputra"
             onChange={inputTextHandler}
@@ -419,8 +421,8 @@ export default function Register() {
           <label className="mb-1">Nomor HP</label>
           <input
             type="number"
-            id="phone"
-            name="phone"
+            id="no_handphone"
+            name="no_handphone"
             className="py-1.5 border-b-2 placeholder-black-main opacity-70 text-sm font-semibold focus:outline-none focus:border-yellow-main"
             placeholder="Ex: 085xxxxxxxx"
             onChange={(e) => {
@@ -428,7 +430,6 @@ export default function Register() {
               inputTextHandler(e);
             }}
           />
-
           {/* Danger notification */}
           <DangerInput
             logic={validateInput.phone.isValid}
@@ -448,7 +449,7 @@ export default function Register() {
           />
         </div>
 
-        <div id="refCodeBox" className="flex flex-col mt-4">
+        <div id="address" className="flex flex-col mt-4">
           <label className="mb-1">Alamat</label>
           <input
             type="text"
@@ -456,6 +457,47 @@ export default function Register() {
             name="address"
             className="py-1.5 border-b-2 placeholder-black-main opacity-70 text-sm font-semibold focus:outline-none focus:border-yellow-main"
             placeholder="Ex: Jl. Muria Blok E2 no. 19 RT 13 RW 04"
+            onChange={inputTextHandler}
+          />
+        </div>
+
+        {/* RT dan RW input form */}
+        <div className="w-full flex">
+          <div id="address" className="flex flex-col mt-4 w-2/5 mr-1/5">
+            <label className="mb-1">RT</label>
+            <input
+              type="number"
+              id="no_rt"
+              name="no_rt"
+              className="py-1.5 border-b-2 placeholder-black-main opacity-70 text-sm font-semibold focus:outline-none focus:border-yellow-main"
+              placeholder="Ex: 13"
+              onChange={inputTextHandler}
+            />
+          </div>
+
+          <div id="address" className="flex flex-col mt-4 w-2/5">
+            <label className="mb-1">RW</label>
+            <input
+              type="number"
+              id="no_rw"
+              name="no_rw"
+              className="py-1.5 border-b-2 placeholder-black-main opacity-70 text-sm font-semibold focus:outline-none focus:border-yellow-main"
+              placeholder="Ex: 01"
+              onChange={inputTextHandler}
+            />
+          </div>
+        </div>
+
+        {/* Form kode pos */}
+
+        <div id="kodeposBox" className="flex flex-col mt-4">
+          <label className="mb-1">Kode Pos</label>
+          <input
+            type="number"
+            id="no_kodepos"
+            name="no_kodepos"
+            className="py-1.5 border-b-2 placeholder-black-main opacity-70 text-sm font-semibold focus:outline-none focus:border-yellow-main"
+            placeholder="Ex: 15560"
             onChange={inputTextHandler}
           />
         </div>

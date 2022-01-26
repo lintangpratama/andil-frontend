@@ -6,10 +6,11 @@ import BackButton from "components/atoms/BackButton";
 
 export default function Register() {
   const [inputFields, setInputFields] = useState({
-    name: "",
+    nama: "",
     email: "",
-    phone: "",
     password: "",
+    no_handphone: "",
+    special_kode: "",
   });
   const [validateInput, setValidateInput] = useState({
     phone: {
@@ -80,13 +81,13 @@ export default function Register() {
   const submitFormHandler = async (e) => {
     e.preventDefault();
 
-    const api = "";
-    const headers = {
-      Authorization: "Bearer MY_TOKEN",
-      "Content-Type": "application/json",
-    };
-    const request = await axios.post(api, inputFields, { headers });
-    console.log(request);
+    try {
+      const api = "https://andil-go-api.herokuapp.com/warga/";
+      const request = await axios.post(api, JSON.stringify(inputFields));
+      console.log(request);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -105,8 +106,8 @@ export default function Register() {
         <div className="flex flex-col">
           <label className="mb-1">Nama</label>
           <input
-            id="name"
-            name="name"
+            id="nama"
+            name="nama"
             className="py-1.5 border-b-2 placeholder-black-main opacity-70 text-sm font-semibold capitalize focus:outline-none focus:border-yellow-main"
             placeholder="Ex: Wahyu Saputra"
             onChange={inputTextHandler}
@@ -171,8 +172,8 @@ export default function Register() {
           <label className="mb-1">Kode Referral</label>
           <input
             type="text"
-            id="refCode"
-            name="refCode"
+            id="special_kode"
+            name="special_kode"
             className="py-1.5 border-b-2 placeholder-black-main opacity-70 text-sm font-semibold focus:outline-none focus:border-yellow-main"
             placeholder="Masukkan kode referral"
             onChange={inputTextHandler}
