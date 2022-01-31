@@ -9,9 +9,9 @@ import MenuBar from "components/organisms/MenuBar";
 SwiperCore.use([FreeMode]);
 
 export default function Home() {
-  const firstName = "Wahyu";
+  const firstName = "Adam";
   const monthlyBill = "Rp120.000";
-  const wallet = "Rp20.598";
+  const wallet = "Rp3.330.598";
 
   return (
     <>
@@ -231,7 +231,7 @@ export default function Home() {
 
         <div className="h-16"></div>
 
-        <MenuBar currentPage="home" />
+        <MenuBar currentPage="home" role="pengurus" />
       </div>
     </>
   );

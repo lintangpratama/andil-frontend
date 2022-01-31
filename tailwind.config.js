@@ -32,6 +32,7 @@ module.exports = {
         bar: "rgba(31, 31, 31, 0.8)",
         "yellow-main": "#FFDA44",
         "black-main": "#1F1F1F",
+        "black-thin": "rgba(31, 31, 31, 0.7)",
         danger: "#E34141",
         success: "#56A38C",
         "blue-secondary": "rgba(66, 159, 242, 0.1)",
@@ -59,7 +60,8 @@ module.exports = {
       },
       boxShadow: {
         bottom: "0px 4px rgba(225,225,225,0.25)",
-        menubar: "box-shadow: 0px -10px 8px 0px rgba(225,225,225,0.1)",
+        menubar: "0px -10px 8px 0px rgba(225,225,225,0.1)",
+        transaction: "0px 0px 4px 0px rgba(0,0,0,0.25);",
         modal: "rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;",
         modal2: "rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;",
       },

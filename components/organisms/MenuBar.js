@@ -55,6 +55,26 @@ export default function MenuBar(props) {
         </button>
       </Link>
 
+      <Link href="/pengurus/buat-tagihan" passHref={true}>
+        <button className={props.role === "pengurus" ? "px-3 py-2 w-1/4 max-w-bar min-w-bar cursor-pointer -mt-0.5" : "hidden"}>
+          <a>
+            <span className="inline-flex flex-col w-full justify-center items-center">
+              <img src="/create.svg"></img>
+
+              <p
+                className={
+                  props.currentPage === "create"
+                    ? "subparagraph text-blue-main mt-1"
+                    : "subparagraph mt-1"
+                }
+              >
+                Buat Tagihan
+              </p>
+            </span>
+          </a>
+        </button>
+      </Link>
+
       <Link href="/home" passHref={true}>
         <button className="px-3 py-2 w-1/4 max-w-bar min-w-bar cursor-pointer -mt-0.5">
           <a>
