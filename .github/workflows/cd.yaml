@@ -18,6 +18,9 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           script: |
             cd ~/app/frontend
+            git add .
+            git stash
             git pull origin main
             yarn
+            yarn build
             pm2 restart FrontEnd
