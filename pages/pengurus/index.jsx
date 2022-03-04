@@ -9,9 +9,9 @@ import MenuBar from "components/organisms/MenuBar";
 SwiperCore.use([FreeMode]);
 
 export default function Home() {
-  const firstName = "Wahyu";
+  const firstName = "Adam";
   const monthlyBill = "Rp120.000";
-  const wallet = "Rp20.598";
+  const wallet = "Rp3.330.598";
 
   return (
     <>
@@ -109,37 +109,52 @@ export default function Home() {
             <p className="text-center subparagraph mt-1">Internet</p>
           </div>
 
-          {/* Kos */}
+          {/* Edukasi */}
           <div>
             <div className="flex items-center w-10 h-10 bg-yellow-icon mx-auto rounded-box">
               <img
-                src="/building.png"
+                src="/books.png"
                 alt="building icon"
                 className="w-8 mx-auto"
               ></img>
             </div>
-            <p className="text-center subparagraph mt-1">Kos</p>
+            <p className="text-center subparagraph mt-1">Edukasi</p>
           </div>
 
+          {/* E-wallet */}
           <div>
-            <div className="flex items-center w-10 h-10 bg-blue-icon mx-auto rounded-box">
-              {/* img */}
+            <div className="flex items-center w-10 h-10 bg-brown-icon mx-auto rounded-box">
+              <img
+                src="/ewallet.png"
+                alt="building icon"
+                className="w-8 mx-auto"
+              ></img>
             </div>
-            <p className="text-center subparagraph mt-1">Lorem</p>
+            <p className="text-center subparagraph mt-1">E-Wallet</p>
           </div>
 
+          {/* BPJS */}
           <div>
-            <div className="flex items-center w-10 h-10 bg-blue-icon mx-auto rounded-box">
-              {/* img */}
+            <div className="flex items-center w-10 h-10 bg-yellow-icon mx-auto rounded-box">
+              <img
+                src="/bpjs.png"
+                alt="building icon"
+                className="w-8 mx-auto"
+              ></img>
             </div>
-            <p className="text-center subparagraph mt-1">Lorem</p>
+            <p className="text-center subparagraph mt-1">BPJS</p>
           </div>
 
+          {/* Game */}
           <div>
-            <div className="flex items-center w-10 h-10 bg-blue-icon mx-auto rounded-box">
-              {/* img */}
+            <div className="flex items-center w-10 h-10 bg-purple-icon mx-auto rounded-box">
+              <img
+                src="/game.png"
+                alt="building icon"
+                className="w-8 mx-auto"
+              ></img>
             </div>
-            <p className="text-center subparagraph mt-1">Lorem</p>
+            <p className="text-center subparagraph mt-1">Game</p>
           </div>
 
           <div>

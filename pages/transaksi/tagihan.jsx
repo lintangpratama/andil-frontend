@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import SmallButton from "components/atoms/SmallButton";
 import BackButton from "/components/atoms/BackButton";
 

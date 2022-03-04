@@ -37,15 +37,21 @@ module.exports = {
         success: "#56A38C",
         "blue-secondary": "rgba(66, 159, 242, 0.1)",
         "blue-secondary-hover": "rgba(66, 159, 242, 0.3)",
-        "yellow-pet": "#F4AB5C",
         "search-bg": "#F5F5F5",
         "search-font": "#88888C",
+        "tag": "#3C7564",
         "blue-icon": "rgba(86, 163, 140, 0.2)",
         "yellow-icon": "rgba(234, 187, 0, 0.2)",
         "gray-icon": "rgba(196, 196, 196, 0.2)",
+        "purple-icon": "rgba(188, 133, 243, 0.2)",
+        "brown-icon": "rgba(250, 178, 123, 0.2)",
         "gray-history": "rgba(31, 31, 31, 0.7)",
+        "role-tag": "rgba(86, 163, 140, 0.5)"
       },
-      fontSize: {},
+      fontSize: {
+        "8": "8px",
+        "12": "12px",
+      },
       margin: {
         "-0.5": "-2px",
         "1/5": "20%",

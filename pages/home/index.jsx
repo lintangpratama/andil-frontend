@@ -4,14 +4,15 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { FreeMode } from "swiper";
 
 import MenuBar from "components/organisms/MenuBar";
+import HistoryBox from "components/molecules/HistoryBox";
 
 // install Swiper modules
 SwiperCore.use([FreeMode]);
 
 export default function Home() {
-  const firstName = "Adam";
+  const firstName = "Lintang Pratama";
   const monthlyBill = "Rp120.000";
-  const wallet = "Rp3.330.598";
+  const wallet = "Rp330.598";
 
   return (
     <>
@@ -109,37 +110,52 @@ export default function Home() {
             <p className="text-center subparagraph mt-1">Internet</p>
           </div>
 
-          {/* Kos */}
+          {/* Edukasi */}
           <div>
             <div className="flex items-center w-10 h-10 bg-yellow-icon mx-auto rounded-box">
               <img
-                src="/building.png"
+                src="/books.png"
                 alt="building icon"
                 className="w-8 mx-auto"
               ></img>
             </div>
-            <p className="text-center subparagraph mt-1">Kos</p>
+            <p className="text-center subparagraph mt-1">Edukasi</p>
           </div>
 
+          {/* E-wallet */}
           <div>
-            <div className="flex items-center w-10 h-10 bg-blue-icon mx-auto rounded-box">
-              {/* img */}
+            <div className="flex items-center w-10 h-10 bg-brown-icon mx-auto rounded-box">
+              <img
+                src="/ewallet.png"
+                alt="building icon"
+                className="w-8 mx-auto"
+              ></img>
             </div>
-            <p className="text-center subparagraph mt-1">Lorem</p>
+            <p className="text-center subparagraph mt-1">E-Wallet</p>
           </div>
 
+          {/* BPJS */}
           <div>
-            <div className="flex items-center w-10 h-10 bg-blue-icon mx-auto rounded-box">
-              {/* img */}
+            <div className="flex items-center w-10 h-10 bg-yellow-icon mx-auto rounded-box">
+              <img
+                src="/bpjs.png"
+                alt="building icon"
+                className="w-8 mx-auto"
+              ></img>
             </div>
-            <p className="text-center subparagraph mt-1">Lorem</p>
+            <p className="text-center subparagraph mt-1">BPJS</p>
           </div>
 
+          {/* Game */}
           <div>
-            <div className="flex items-center w-10 h-10 bg-blue-icon mx-auto rounded-box">
-              {/* img */}
+            <div className="flex items-center w-10 h-10 bg-purple-icon mx-auto rounded-box">
+              <img
+                src="/game.png"
+                alt="building icon"
+                className="w-8 mx-auto"
+              ></img>
             </div>
-            <p className="text-center subparagraph mt-1">Lorem</p>
+            <p className="text-center subparagraph mt-1">Game</p>
           </div>
 
           <div>
@@ -191,47 +207,34 @@ export default function Home() {
           <h3>Riwayat Transaksi</h3>
 
           {/* Box history */}
-          <div className="flex w-full border-2 border-gray-icon mt-2.5 rounded-box">
-            <div className="mx-2.5 my-2.5">
-              <p className="subparagraph font-semibold">
-                Pulsa Telkomsel 50.000
-              </p>
-              <p className="text-8px text-gray-history">081312458192</p>
-              <p className="text-8px text-gray-history">3 Januari 2022</p>
-            </div>
-            <div className="my-auto ml-auto mr-2.5 text-right">
-              <p className="subparagraph font-semibold">Rp51.500</p>
-              <p className="text-8px font-medium text-success flex mt-0.5">
-                <span className="mr-0.5 mt-1px">
-                  <img src="success-icon.svg" alt="success icon"></img>
-                </span>
-                Berhasil
-              </p>
-            </div>
-          </div>
+          <Link href="transaksi/1" passHref={true}>
+            <a>
+              <HistoryBox
+                product="Pulsa Telkomsel 50.000"
+                id="081312458192"
+                date="3 Januari 2022"
+                total="Rp51.500"
+                status="Berhasil"
+              />
+            </a>
+          </Link>
 
-          <div className="flex w-full border-2 border-gray-icon mt-2.5 rounded-box min-h-history-box">
-            <div className="mx-2.5 my-2.5">
-              <p className="subparagraph font-semibold">
-                Tagihan air & sampah (Desember)
-              </p>
-              <p className="text-8px text-gray-history">3 Desember 2021</p>
-            </div>
-            <div className="my-auto ml-auto mr-2.5 text-right">
-              <p className="subparagraph font-semibold">Rp51.500</p>
-              <p className="text-8px font-medium text-success flex mt-0.5">
-                <span className="mr-0.5 mt-1px">
-                  <img src="success-icon.svg" alt="success icon"></img>
-                </span>
-                Berhasil
-              </p>
-            </div>
-          </div>
+          <Link href="transaksi/1" passHref={true}>
+            <a>
+              <HistoryBox
+                product="Pulsa Telkomsel 50.000"
+                id="081312458192"
+                date="3 Januari 2022"
+                total="Rp51.500"
+                status="Berhasil"
+              />
+            </a>
+          </Link>
         </div>
 
         <div className="h-16"></div>
 
-        <MenuBar currentPage="home" role="pengurus" />
+        <MenuBar currentPage="home" />
       </div>
     </>
   );
