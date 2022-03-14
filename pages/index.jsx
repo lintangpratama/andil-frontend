@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Pagination } from "swiper";
-
+import axios from "axios";
 
 // install Swiper modules
 SwiperCore.use([Pagination]);
@@ -86,3 +86,4 @@ export default function Home() {
     </>
   );
 }
+

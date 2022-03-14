@@ -6,7 +6,7 @@ import Cookies from "js-cookie";
 import BackButton from "components/atoms/BackButton";
 import Link from "next/link";
 
-export default function Login() {
+export default function LoginPengurus() {
   const router = useRouter();
   const [inputFields, setInputFields] = useState({
     email: "",
@@ -26,15 +26,15 @@ export default function Login() {
     e.preventDefault();
 
     try {
-      const api = "http://116.193.191.169:3001/api/auth/login?user=pengguna";
+      const api = "http://116.193.191.169:3001/api/auth/login?user=pengurus";
       const request = await axios.post(api, JSON.stringify(inputFields));
-      console.log(request);
+      console.log(request.data);
 
       // Set the auth cookie
       Cookies.set("token", request.data.data);
 
       // Redirect the page to home page
-      router.push("/home/");
+      router.push("/pengurus");
     } catch (err) {
       console.log(err);
     }

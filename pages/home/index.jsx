@@ -2,17 +2,38 @@ import Link from "next/link";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { FreeMode } from "swiper";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 import MenuBar from "components/organisms/MenuBar";
 import HistoryBox from "components/molecules/HistoryBox";
+import { useEffect, useState } from "react";
 
 // install Swiper modules
 SwiperCore.use([FreeMode]);
 
-export default function Home() {
-  const firstName = "Lintang Pratama";
-  const monthlyBill = "Rp120.000";
-  const wallet = "Rp330.598";
+export default function Home({ props }) {
+  const [userData, setuserData] = useState({});
+
+  // const firstName = props.nama;
+  // const monthlyBill = props.spesial_kode;
+  // const wallet = props.jumlah_saldo;
+
+  const getUserById = async () => {
+    const api = "http://116.193.191.169:3001/api/pengguna";
+    const res = await axios.get(api, {
+      headers: {
+        Authorization: "Bearer " + Cookies.get("token"),
+      },
+    });
+    const data = res.data;
+    setuserData(data);
+    console.log(userData);
+  };
+
+  useEffect(() => {
+    getUserById();
+  });
 
   return (
     <>
@@ -37,9 +58,9 @@ export default function Home() {
             />
           </div>
           <div className="mt-3">
-            <h2 className="text-white">Halo, {firstName}!</h2>
+            <h2 className="text-white">Halo, !</h2>
             <p className="mt-1 text-white">
-              Tagihan kamu bulan ini adalah sebesar <br /> {monthlyBill}
+              Tagihan kamu bulan ini adalah sebesar <br /> 
             </p>
             <button className="text-yellow-main border border-yellow-main bg-white py-1 px-4 rounded-full mt-3">
               <Link href="/transaksi/tagihan" passHref={true}>
@@ -60,7 +81,7 @@ export default function Home() {
                 <img src="logo.svg" className="w-8 inline-block -mt-0.5" />
               </span>
             </h4>
-            <h2 className="text-secondary mt-0.5">{wallet}</h2>
+            <h2 className="text-secondary mt-0.5"></h2>
             <p className="subparagraph mt-1.5 underline text-secondary">
               <a>Lihat histori transaksi</a>
             </p>

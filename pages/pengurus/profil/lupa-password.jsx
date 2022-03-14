@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useRouter } from "next/router";
 
 import axios from "axios";
 
@@ -8,18 +7,12 @@ import SmallButton from "components/atoms/SmallButton";
 import BackButton from "components/atoms/BackButton";
 
 export default function Register() {
-  const router = useRouter();
   const [inputFields, setInputFields] = useState({
-    nama: "",
     email: "",
-    password: "",
-    no_handphone: "",
-    spesial_kode: "",
+    password_baru: ""
   });
+
   const [validateInput, setValidateInput] = useState({
-    phone: {
-      isValid: true,
-    },
     email: {
       isValid: true,
     },
@@ -52,27 +45,6 @@ export default function Register() {
     }
   };
 
-  const validatePhone = () => {
-    const phoneId = document.getElementById("no_handphone");
-    const phoneInput = phoneId.value;
-
-    if (phoneInput.length >= 9 && phoneInput.length <= 14) {
-      setValidateInput({
-        ...validateInput,
-        phone: {
-          isValid: true,
-        },
-      });
-    } else {
-      setValidateInput({
-        ...validateInput,
-        phone: {
-          isValid: false,
-        },
-      });
-    }
-  };
-
   const inputTextHandler = (e) => {
     const getInputText = e.target.getAttribute("name");
 
@@ -88,14 +60,12 @@ export default function Register() {
     e.preventDefault();
 
     try {
-      const api = "http://116.193.191.169:3001/api/auth/register?user=pengguna";
+      const api = "http://116.193.191.169:3001/api/auth/forget-password?user=pengurus";
       const request = await axios.post(api, JSON.stringify(inputFields));
       console.log(request);
-      router.push('/')
     } catch (err) {
       console.log(err);
     }
-    
   };
 
   return (
@@ -106,22 +76,11 @@ export default function Register() {
 
         {/* Description */}
         <div className="mb-6 mt-7">
-          <h2>Daftar</h2>
-          <p className="mt-1">Yuk isi data dirimu dulu untuk daftar</p>
+          <h2>Lupa Password</h2>
+          <p className="mt-1">Isi form di bawah untuk ubah password kamu</p>
         </div>
 
         {/* Register form */}
-        <div className="flex flex-col">
-          <label className="mb-1">Nama</label>
-          <input
-            id="nama"
-            name="nama"
-            className="py-1.5 border-b-2 placeholder-black-main opacity-70 text-sm font-semibold capitalize focus:outline-none focus:border-yellow-main"
-            placeholder="Ex: Wahyu Saputra"
-            onChange={inputTextHandler}
-          />
-        </div>
-
         <div id="emailBox" className="flex flex-col mt-4">
           <label className="mb-1">Email</label>
           <input
@@ -143,47 +102,14 @@ export default function Register() {
           />
         </div>
 
-        <div id="phoneBox" className="flex flex-col mt-4">
-          <label className="mb-1">Nomor HP</label>
-          <input
-            type="number"
-            id="no_handphone"
-            name="no_handphone"
-            className="py-1.5 border-b-2 placeholder-black-main opacity-70 text-sm font-semibold focus:outline-none focus:border-yellow-main"
-            placeholder="Ex: 085xxxxxxxx"
-            onChange={(e) => {
-              validatePhone();
-              inputTextHandler(e);
-            }}
-          />
-
-          {/* Danger notification */}
-          <DangerInput
-            logic={validateInput.phone.isValid}
-            msg="Format nomor HP salah. Coba masukkan lagi, ya"
-          />
-        </div>
-
         <div className="flex flex-col mt-4">
-          <label className="mb-1">Password</label>
+          <label className="mb-1">Password Baru</label>
           <input
             type="password"
-            id="password"
-            name="password"
+            id="password_baru"
+            name="password_baru"
             className="py-1.5 border-b-2 placeholder-black-main opacity-70 text-sm font-semibold focus:outline-none focus:border-yellow-main"
-            placeholder="Masukkan password"
-            onChange={inputTextHandler}
-          />
-        </div>
-
-        <div id="refCodeBox" className="flex flex-col mt-4">
-          <label className="mb-1">Kode Referral</label>
-          <input
-            type="text"
-            id="spesial_kode"
-            name="spesial_kode"
-            className="py-1.5 border-b-2 placeholder-black-main opacity-70 text-sm font-semibold focus:outline-none focus:border-yellow-main"
-            placeholder="Masukkan kode referral"
+            placeholder="Masukkan password baru"
             onChange={inputTextHandler}
           />
         </div>

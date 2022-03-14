@@ -1,3 +1,4 @@
+import LogoutButton from "components/molecules/LogoutButton";
 import MenuBar from "components/organisms/MenuBar";
 import Link from "next/link";
 
@@ -43,7 +44,7 @@ export default function Profil() {
           <label>Akun</label>
 
           {/* Edit profile */}
-          <Link href="/">
+          <Link href="/pengurus/profil/edit-profil">
             <a>
               <div className="flex">
                 <img src="/profil/edit-profil.svg" />
@@ -56,7 +57,7 @@ export default function Profil() {
           </Link>
 
           {/* Edit password */}
-          <Link href="/profil/edit-password">
+          <Link href="/pengurus/profil/edit-password">
             <a>
               <div className="flex">
                 <img src="/profil/edit-pw.svg" />
@@ -111,18 +112,7 @@ export default function Profil() {
             </a>
           </Link>
 
-          {/* Logout */}
-          <Link href="/">
-            <a>
-              <div className="flex">
-                <img src="/profil/signout.svg" />
-                <div className="flex border-b w-full ml-2 justify-between">
-                  <h3 className="text-12 py-3.5 text-danger">Keluar</h3>
-                  <img src="/profil/arrow-right.svg" />
-                </div>
-              </div>
-            </a>
-          </Link>
+          <LogoutButton />
         </div>
 
         <MenuBar currentPage="profil" />
