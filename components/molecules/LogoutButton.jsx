@@ -1,9 +1,15 @@
 import Link from "next/link";
 import Cookies from "js-cookie";
 
-export default function LogoutButton() {
+export default function LogoutButton(props) {
+  const { role } = props;
+
   const logout = () => {
-    Cookies.remove("token");
+    if (role === "pengguna") {
+      Cookies.remove("token");
+    } else if (role === "pengururs") {
+      Cookies.remove("token_pengurus");
+    }
   };
 
   return (

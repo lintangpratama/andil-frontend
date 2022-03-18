@@ -1,4 +1,6 @@
 import MenuBar from "components/organisms/MenuBar";
+import LogoutButton from "components/molecules/LogoutButton";
+
 import Link from "next/link";
 
 export default function Profil() {
@@ -112,17 +114,7 @@ export default function Profil() {
           </Link>
 
           {/* Logout */}
-          <Link href="/">
-            <a>
-              <div className="flex">
-                <img src="/profil/signout.svg" />
-                <div className="flex border-b w-full ml-2 justify-between">
-                  <h3 className="text-12 py-3.5 text-danger">Keluar</h3>
-                  <img src="/profil/arrow-right.svg" />
-                </div>
-              </div>
-            </a>
-          </Link>
+          <LogoutButton role="pengguna" />
         </div>
 
         <MenuBar currentPage="profil" />

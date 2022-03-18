@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 import axios from "axios";
 
@@ -7,6 +8,7 @@ import SmallButton from "components/atoms/SmallButton";
 import BackButton from "components/atoms/BackButton";
 
 export default function Register() {
+  const router = useRouter();
   const [inputFields, setInputFields] = useState({
     email: "",
     password_baru: ""
@@ -63,6 +65,7 @@ export default function Register() {
       const api = "http://116.193.191.169:3001/api/auth/forget-password?user=pengurus";
       const request = await axios.post(api, JSON.stringify(inputFields));
       console.log(request);
+      router.push('/login');
     } catch (err) {
       console.log(err);
     }
@@ -116,7 +119,7 @@ export default function Register() {
 
         {/* Register button */}
         <div className="mt-9">
-          <SmallButton message="Daftar" onClick={submitFormHandler} />
+          <SmallButton message="Ubah Password" onClick={submitFormHandler} />
         </div>
       </div>
     </>

@@ -28,18 +28,27 @@ export default function EditPassword() {
   const submitFormHandler = async (e) => {
     e.preventDefault();
 
-    try {
-      const api = "http://116.193.191.169:3001/api/auth/change-password?user=pengguna";
-      const request = await axios.post(api, JSON.stringify(inputFields), {
-        headers: {
-          Authorization: "Bearer " + Cookies.get("token"),
-        },
-      });
-      console.log(request);
-      router.push("/profil");
-    } catch (err) {
-      console.log(err);
-    }
+    const myHeaders = new Headers();
+    myHeaders.append(
+      "Authorization",
+      "Bearer " + Cookies.get('token')
+    );
+
+
+    const requestOptions = {
+      method: "PUT",
+      headers: myHeaders,
+      body: JSON.stringify(inputFields),
+      redirect: "follow"
+    };
+
+    fetch(
+      "http://116.193.191.169:3001/api/auth/change-password?user=pengguna",
+      requestOptions
+    )
+      .then((response) => response.text())
+      .then((result) => console.log(result))
+      .catch((error) => console.log("error", error));
   };
 
   return (

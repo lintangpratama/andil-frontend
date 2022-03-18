@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import axios from "axios";
+
 import Cookies from "js-cookie";
 
 import BackButton from "components/atoms/BackButton";
 import Link from "next/link";
 
-export default function LoginPengurus() {
+export default function Login() {
   const router = useRouter();
   const [inputFields, setInputFields] = useState({
     email: "",
-    password: "",
+    password: ""
   });
 
   const inputTextHandler = (e) => {
@@ -26,15 +26,21 @@ export default function LoginPengurus() {
     e.preventDefault();
 
     try {
-      const api = "http://116.193.191.169:3001/api/auth/login?user=pengurus";
-      const request = await axios.post(api, JSON.stringify(inputFields));
-      console.log(request.data);
+      const requestOptions = {
+        method: "POST",
+        body: JSON.stringify(inputFields),
+        redirect: "follow"
+      };
 
-      // Set the auth cookie
-      Cookies.set("token", request.data.data);
+      const req = await fetch(
+        "http://116.193.191.169:3001/api/auth/login?user=pengurus",
+        requestOptions
+      );
+      const res = await req.json();
 
-      // Redirect the page to home page
-      router.push("/pengurus");
+      Cookies.set('token_pengurus', res.data);
+      router.push('/pengurus');
+      console.log(res);
     } catch (err) {
       console.log(err);
     }
@@ -94,10 +100,8 @@ export default function LoginPengurus() {
 
         {/* Button masuk */}
         <div className="mt-3">
-          <button
-            className="text-yellow-main bg-white py-3 w-full rounded-full border border-yellow-main"
-          >
-           <Link href="/lupa-password">Lupa Password?</Link>
+          <button className="text-yellow-main bg-white py-3 w-full rounded-full border border-yellow-main">
+            <Link href="./profil/lupa-password">Lupa Password?</Link>
           </button>
         </div>
       </div>

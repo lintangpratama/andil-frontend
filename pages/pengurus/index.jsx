@@ -2,6 +2,8 @@ import Link from "next/link";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { FreeMode } from "swiper";
+import { useEffect, useState } from "react";
+import Cookies from "js-cookie";
 
 import MenuBar from "components/organisms/MenuBar";
 
@@ -9,9 +11,35 @@ import MenuBar from "components/organisms/MenuBar";
 SwiperCore.use([FreeMode]);
 
 export default function Home() {
-  const firstName = "Adam";
+  const [userData, setUserData] = useState({})
   const monthlyBill = "Rp120.000";
-  const wallet = "Rp3.330.598";
+
+  useEffect(() => {
+    const dataFetch = async () => {
+      const headers = new Headers();
+      headers.append(
+        "Authorization",
+        "Bearer " + Cookies.get("token_pengurus")
+      );
+
+      const requestOptions = {
+        method: "GET",
+        headers: headers,
+        redirect: "follow",
+      };
+
+      const req = await fetch(
+        "http://116.193.191.169:3001/api/pengurus",
+        requestOptions
+      );
+      const res = await req.json();
+      
+      setUserData(res.data);
+      console.log(res.data);
+    };
+
+    dataFetch();
+  }, []);
 
   return (
     <>
@@ -36,7 +64,7 @@ export default function Home() {
             />
           </div>
           <div className="mt-3">
-            <h2 className="text-white">Halo, {firstName}!</h2>
+            <h2 className="text-white">Halo, {userData.nama}!</h2>
             <p className="mt-1 text-white">
               Tagihan kamu bulan ini adalah sebesar <br /> {monthlyBill}
             </p>
@@ -59,7 +87,7 @@ export default function Home() {
                 <img src="logo.svg" className="w-8 inline-block -mt-0.5" />
               </span>
             </h4>
-            <h2 className="text-secondary mt-0.5">{wallet}</h2>
+            <h2 className="text-secondary mt-0.5">Rp{userData.jumlah_saldo}</h2>
             <p className="subparagraph mt-1.5 underline text-secondary">
               <a>Lihat histori transaksi</a>
             </p>

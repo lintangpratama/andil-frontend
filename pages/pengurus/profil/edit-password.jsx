@@ -7,12 +7,11 @@ import Cookies from "js-cookie";
 import SmallButton from "components/atoms/SmallButton";
 import BackButton from "components/atoms/BackButton";
 
-
 export default function EditPassword() {
   const router = useRouter();
   const [inputFields, setInputFields] = useState({
     password_lama: "",
-    password_baru: "",
+    password_baru: ""
   });
 
   const inputTextHandler = (e) => {
@@ -27,19 +26,25 @@ export default function EditPassword() {
   const submitFormHandler = async (e) => {
     e.preventDefault();
 
-    try {
-      const api =
-        "http://116.193.191.169:3001/api/auth/change-password?user=pengurus";
-      const request = await axios.post(api, JSON.stringify(inputFields), {
-        headers: {
-          Authorization: "Bearer " + Cookies.get("token"),
-        },
+    const headers = {
+      Authorization:
+        "Bearer " + Cookies.get('token_pengurus'),
+    };
+
+    var config = {
+      method: "put",
+      url: "http://116.193.191.169:3001/api/auth/change-password?user=pengurus",
+      headers: headers,
+      data: JSON.stringify(inputFields),
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        console.log(error);
       });
-      console.log(request);
-      router.push("/pengurus/profil");
-    } catch (err) {
-      console.log(err);
-    }
   };
 
   return (

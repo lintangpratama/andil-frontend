@@ -1,8 +1,41 @@
-import LogoutButton from "components/molecules/LogoutButton";
-import MenuBar from "components/organisms/MenuBar";
 import Link from "next/link";
 
+import { useEffect, useState } from "react";
+import Cookies from "js-cookie";
+
+import LogoutButton from "components/molecules/LogoutButton";
+import MenuBar from "components/organisms/MenuBar";
+
+
 export default function Profil() {
+  const [userData, setUserData] = useState({});
+
+  useEffect(() => {
+    const dataFetch = async () => {
+      const headers = new Headers();
+      headers.append(
+        "Authorization",
+        "Bearer " + Cookies.get("token_pengurus")
+      );
+
+      const requestOptions = {
+        method: "GET",
+        headers: headers,
+        redirect: "follow",
+      };
+
+      const req = await fetch(
+        "http://116.193.191.169:3001/api/pengurus",
+        requestOptions
+      );
+      const res = await req.json();
+
+      setUserData(res.data);
+      console.log(res.data);
+    };
+
+    dataFetch();
+  }, []);
   return (
     <>
       <div className="mx-4 my-5">
@@ -13,9 +46,9 @@ export default function Profil() {
           </div>
           <div className="ml-7">
             {/* Identity */}
-            <h2 className="font-bold">Lintang Pratama</h2>
-            <p className="">lintangajiyogapratama@gmail.com</p>
-            <p className="">+6285873527593</p>
+            <h2 className="font-bold">{userData.nama}</h2>
+            <p className="">{userData.email}</p>
+            <p className="">{userData.no_handphone}</p>
 
             {/* Role tag */}
             <div className="flex bg-role-tag px-1 py-0.5 rounded-full w-fit mt-2">
@@ -112,7 +145,7 @@ export default function Profil() {
             </a>
           </Link>
 
-          <LogoutButton />
+          <LogoutButton role="pengurus" />
         </div>
 
         <MenuBar currentPage="profil" />

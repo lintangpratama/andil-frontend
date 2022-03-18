@@ -9,39 +9,44 @@ export default function Register() {
   const [inputFields, setInputFields] = useState({
     jenis_area: "",
     nama_area: "",
-    nama_provinsi: "",
-    nama_kota: "",
-    nama_kecamatan: "",
-    nama_kelurahan: "",
-    no_rt: "",
-    no_rw: "",
-    no_kodepos: "",
+    provinsi: "",
+    kota: "",
+    kecamatan: "",
+    kelurahan: "",
+    rt: "",
+    rw: "",
+    kodepos: "",
     nama: "",
     email: "",
     no_handphone: "",
     password: "",
-    alamat_rumah: "",
+    alamat: "",
   });
+
   const [provinsiOption, setProvinsiOption] = useState({
     data: [],
     choosenData: "",
     id: 0,
   });
+
   const [kabupatenOption, setKabupatenOption] = useState({
     data: [],
     choosenData: "",
     id: 0,
   });
+
   const [kecamatanOption, setKecamatanOption] = useState({
     data: [],
     choosenData: "",
     id: 0,
   });
+
   const [kelurahanOption, setKelurahanOption] = useState({
     data: [],
     choosenData: "",
     id: 0,
   });
+
   const [validateInput, setValidateInput] = useState({
     phone: {
       isValid: true,
@@ -64,8 +69,8 @@ export default function Register() {
     e.preventDefault();
 
     try {
-      const api = "https://andil-go-api.herokuapp.com/pengurus/";
-      const request = await axios.post(api, inputFields);
+      const api = "http://116.193.191.169:3001/api/auth/register?user=pengurus";
+      const request = await axios.post(api, JSON.stringify(inputFields));
       console.log(request);
     } catch (err) {
       console.log(err);
@@ -100,7 +105,7 @@ export default function Register() {
   };
 
   const validatePhone = () => {
-    const phoneId = document.getElementById("phone");
+    const phoneId = document.getElementById("no_handphone");
     const phoneInput = phoneId.value;
 
     if (phoneInput.length >= 9 && phoneInput.length <= 14) {
@@ -125,7 +130,7 @@ export default function Register() {
     const getAllProvince = async () => {
       try {
         const response = await axios.get(
-          "https://area.nyandev.id/provinsi.json"
+          "http://www.emsifa.com/api-wilayah-indonesia/api/provinces.json"
         );
         const data = response.data;
         setProvinsiOption({
@@ -145,7 +150,7 @@ export default function Register() {
     const getAllKabupaten = async () => {
       try {
         const response = await axios.get(
-          `https://area.nyandev.id/provinsi/${provinsiOption.id}/kabupaten.json`
+          `http://www.emsifa.com/api-wilayah-indonesia/api/regencies/${provinsiOption.id}.json`
         );
         const data = response.data;
         setKabupatenOption({
@@ -164,7 +169,7 @@ export default function Register() {
     const getAllKecamatan = async () => {
       try {
         const response = await axios.get(
-          `https://area.nyandev.id/provinsi/kabupaten/${kabupatenOption.id}/kecamatan.json`
+          `http://www.emsifa.com/api-wilayah-indonesia/api/districts/${kabupatenOption.id}.json`
         );
         const data = response.data;
         setKecamatanOption({
@@ -183,7 +188,7 @@ export default function Register() {
     const getAllKelurahan = async () => {
       try {
         const response = await axios.get(
-          `https://area.nyandev.id/provinsi/kabupaten/kecamatan/${kecamatanOption.id}/kelurahan.json`
+          `http://www.emsifa.com/api-wilayah-indonesia/api/villages/${kecamatanOption.id}.json`
         );
         const data = response.data;
         setKelurahanOption({
@@ -250,8 +255,8 @@ export default function Register() {
         <div className="flex flex-col">
           <label className="mb-1">Provinsi</label>
           <select
-            id="nama_provinsi"
-            name="nama_provinsi"
+            id="provinsi"
+            name="provinsi"
             className="py-1.5 bg-white border-b-2 text-black-main opacity-70 text-sm font-semibold focus:outline-none focus:border-yellow-main"
             onChange={(e) => {
               const name = document.getElementById("provinsi");
@@ -277,15 +282,15 @@ export default function Register() {
               <option key={provinsi.id} value={provinsi.name}>
                 {provinsi.name}
               </option>
-            ))}
+             ))}
           </select>
         </div>
 
         <div className="flex flex-col mt-4">
           <label className="mb-1">Kabupaten/Kota</label>
           <select
-            id="nama_kota"
-            name="nama_kota"
+            id="kota"
+            name="kota"
             className="py-1.5 bg-white border-b-2 text-black-main opacity-70 text-sm font-semibold focus:outline-none focus:border-yellow-main"
             onChange={(e) => {
               const name = document.getElementById("kota");
@@ -318,8 +323,8 @@ export default function Register() {
         <div className="flex flex-col mt-4">
           <label className="mb-1">Kecamatan</label>
           <select
-            id="nama_kecamatan"
-            name="nama_kecamatan"
+            id="kecamatan"
+            name="kecamatan"
             className="py-1.5 bg-white border-b-2 text-black-main opacity-70 text-sm font-semibold focus:outline-none focus:border-yellow-main"
             onChange={(e) => {
               const name = document.getElementById("kecamatan");
@@ -352,8 +357,8 @@ export default function Register() {
         <div className="flex flex-col mt-4">
           <label className="mb-1">Kelurahan/Desa</label>
           <select
-            id="nama_kelurahan"
-            name="nama_kelurahan"
+            id="kelurahan"
+            name="kelurahan"
             className="py-1.5 bg-white border-b-2 text-black-main opacity-70 text-sm font-semibold focus:outline-none focus:border-yellow-main"
             onChange={inputTextHandler}
           >
@@ -366,18 +371,6 @@ export default function Register() {
               </option>
             ))}
           </select>
-        </div>
-
-        <div id="refCodeBox" className="flex flex-col mt-4">
-          <label className="mb-1">Alamat Area</label>
-          <input
-            type="text"
-            id="alamat_rumah"
-            name="alamat_rumah"
-            className="py-1.5 border-b-2 placeholder-black-main opacity-70 text-sm font-semibold focus:outline-none focus:border-yellow-main"
-            placeholder="Ex: Jl. Muria Blok E"
-            onChange={inputTextHandler}
-          />
         </div>
 
         {/* Register form */}
@@ -433,7 +426,7 @@ export default function Register() {
           {/* Danger notification */}
           <DangerInput
             logic={validateInput.phone.isValid}
-            msg="Format email salah. Coba masukkan lagi, ya"
+            msg="Format nomor HP salah. Coba masukkan lagi, ya"
           />
         </div>
 
@@ -449,12 +442,12 @@ export default function Register() {
           />
         </div>
 
-        <div id="address" className="flex flex-col mt-4">
+        <div id="alamat" className="flex flex-col mt-4">
           <label className="mb-1">Alamat</label>
           <input
             type="text"
-            id="address"
-            name="address"
+            id="alamat"
+            name="alamat"
             className="py-1.5 border-b-2 placeholder-black-main opacity-70 text-sm font-semibold focus:outline-none focus:border-yellow-main"
             placeholder="Ex: Jl. Muria Blok E2 no. 19 RT 13 RW 04"
             onChange={inputTextHandler}
@@ -467,8 +460,8 @@ export default function Register() {
             <label className="mb-1">RT</label>
             <input
               type="number"
-              id="no_rt"
-              name="no_rt"
+              id="rt"
+              name="rt"
               className="py-1.5 border-b-2 placeholder-black-main opacity-70 text-sm font-semibold focus:outline-none focus:border-yellow-main"
               placeholder="Ex: 13"
               onChange={inputTextHandler}
@@ -479,8 +472,8 @@ export default function Register() {
             <label className="mb-1">RW</label>
             <input
               type="number"
-              id="no_rw"
-              name="no_rw"
+              id="rw"
+              name="rw"
               className="py-1.5 border-b-2 placeholder-black-main opacity-70 text-sm font-semibold focus:outline-none focus:border-yellow-main"
               placeholder="Ex: 01"
               onChange={inputTextHandler}
@@ -494,8 +487,8 @@ export default function Register() {
           <label className="mb-1">Kode Pos</label>
           <input
             type="number"
-            id="no_kodepos"
-            name="no_kodepos"
+            id="kodepos"
+            name="kodepos"
             className="py-1.5 border-b-2 placeholder-black-main opacity-70 text-sm font-semibold focus:outline-none focus:border-yellow-main"
             placeholder="Ex: 15560"
             onChange={inputTextHandler}

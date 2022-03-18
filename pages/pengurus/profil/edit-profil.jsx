@@ -11,6 +11,7 @@ export default function EditProfil() {
     nama: "",
     email: "",
     no_handphone: "",
+    alamat: ""
   });
   const [validateInput, setValidateInput] = useState({
     phone: {

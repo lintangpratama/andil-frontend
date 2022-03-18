@@ -58,7 +58,7 @@ export default function Home() {
 
         {/* Button masuk */}
         <div className="mt-5">
-          <Link href="/login" passHref={true}>
+          <Link href="/login-choose" passHref={true}>
             <button className="text-white bg-yellow-main py-3 w-full rounded-full">
               Masuk
             </button>
