@@ -8,9 +8,10 @@ import Cookies from "js-cookie";
 import MenuBar from "components/organisms/MenuBar";
 
 // install Swiper modules
-SwiperCore.use([FreeMode]);
 
 export default function Home() {
+  SwiperCore.use([FreeMode]);
+
   const [userData, setUserData] = useState({})
   const monthlyBill = "Rp120.000";
 
@@ -274,7 +275,7 @@ export default function Home() {
 
         <div className="h-16"></div>
 
-        <MenuBar currentPage="home" />
+        <MenuBar currentPage="home" role="pengurus" />
       </div>
     </>
   );

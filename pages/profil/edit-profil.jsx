@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 
+import Cookies from 'js-cookie'
+
 import DangerInput from "components/atoms/DangerInput";
 import SmallButton from "components/atoms/SmallButton";
 import BackButton from "components/atoms/BackButton";
@@ -11,6 +13,7 @@ export default function EditProfil() {
     nama: "",
     email: "",
     no_handphone: "",
+    alamat: ""
   });
   const [validateInput, setValidateInput] = useState({
     phone: {
@@ -83,25 +86,27 @@ export default function EditProfil() {
   const submitFormHandler = async (e) => {
     e.preventDefault();
 
-    var myHeaders = new Headers();
+    const myHeaders = new Headers();
     myHeaders.append(
       "Authorization",
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDY5OTE4NTcsImlzcyI6IkJpbWFudGFyYURldiIsImlkIjoxNCwibmFtYSI6ImRhbmRpIiwiZW1haWwiOiJhbmRpQGFuZGlsLmNvbSIsInJvbGUiOiJwZW5nZ3VuYSJ9.oG40RMmKob61Qv__BMHtxHWy1zKIsuYBo2XWCPMbSJA"
+      "Bearer " + Cookies.get("token")
     );
-
-    var raw =
-      '{\r\n    "nama": "Andi",\r\n    "email": "andi@andil.com",\r\n    "no_handphone": "081284745627",\r\n    "alamat": "Surabaya"\r\n}';
 
     var requestOptions = {
       method: "PUT",
       headers: myHeaders,
-      body: raw,
+      body: JSON.stringify(inputFields),
       redirect: "follow"
     };
 
     fetch("http://116.193.191.169:3001/api/pengguna/profile", requestOptions)
-      .then((response) => response.text())
-      .then((result) => console.log(result))
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result);
+        if (result.code === 200) {
+          router.push('/home');
+        }
+      })
       .catch((error) => console.log("error", error));
   };
 

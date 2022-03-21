@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import axios from "axios";
 
 import SmallButton from "components/atoms/SmallButton";
 import DangerInput from "components/atoms/DangerInput";
 import BackButton from "components/atoms/BackButton";
 
+
 export default function Register() {
+  const router = useRouter();
   const [inputFields, setInputFields] = useState({
     jenis_area: "",
     nama_area: "",
@@ -71,7 +74,7 @@ export default function Register() {
     try {
       const api = "http://116.193.191.169:3001/api/auth/register?user=pengurus";
       const request = await axios.post(api, JSON.stringify(inputFields));
-      console.log(request);
+      router.push('pengurus/login')
     } catch (err) {
       console.log(err);
     }

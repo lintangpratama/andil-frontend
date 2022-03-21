@@ -45,7 +45,7 @@ export default function Profil() {
           <label>Akun</label>
 
           {/* Edit profile */}
-          <Link href="/">
+          <Link href="/profil/edit-profil">
             <a>
               <div className="flex">
                 <img src="/profil/edit-profil.svg" />

@@ -46,8 +46,16 @@ export default function EditPassword() {
       "http://116.193.191.169:3001/api/auth/change-password?user=pengguna",
       requestOptions
     )
-      .then((response) => response.text())
-      .then((result) => console.log(result))
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result);
+        if (result.code === 200)  {
+
+          router.push('/profil')
+        } else {
+          alert('Password salah')
+        }
+      })
       .catch((error) => console.log("error", error));
   };
 

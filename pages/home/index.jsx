@@ -1,39 +1,42 @@
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { FreeMode } from "swiper";
-import axios from "axios";
 import Cookies from "js-cookie";
+import axios from "axios";
 
 import MenuBar from "components/organisms/MenuBar";
-import HistoryBox from "components/molecules/HistoryBox";
-import { useEffect, useState } from "react";
 
 // install Swiper modules
-SwiperCore.use([FreeMode]);
 
-export default function Home({ props }) {
-  const [userData, setuserData] = useState({});
-
-  // const firstName = props.nama;
-  // const monthlyBill = props.spesial_kode;
-  // const wallet = props.jumlah_saldo;
-
-  const getUserById = async () => {
-    const api = "http://116.193.191.169:3001/api/pengguna";
-    const res = await axios.get(api, {
-      headers: {
-        Authorization: "Bearer " + Cookies.get("token"),
-      },
-    });
-    const data = res.data;
-    setuserData(data);
-    console.log(userData);
-  };
+export default function Home() {
+  SwiperCore.use([FreeMode]);
+  const [userData, setUserData] = useState({});
+  const monthlyBill = "Rp120.000";
 
   useEffect(() => {
-    getUserById();
-  });
+    const dataFetch = async () => {
+      var config = {
+        method: "get",
+        url: "http://116.193.191.169:3001/api/pengguna",
+        headers: {
+          Authorization:
+            "Bearer " + Cookies.get('token')
+        },
+      };
+
+      axios(config)
+        .then(function (response) {
+          console.log(JSON.stringify(response.data));
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    };
+
+    dataFetch();
+  }, []);
 
   return (
     <>
@@ -58,9 +61,9 @@ export default function Home({ props }) {
             />
           </div>
           <div className="mt-3">
-            <h2 className="text-white">Halo, !</h2>
+            <h2 className="text-white">Halo, {userData.nama}!</h2>
             <p className="mt-1 text-white">
-              Tagihan kamu bulan ini adalah sebesar <br /> 
+              Tagihan kamu bulan ini adalah sebesar <br /> {monthlyBill}
             </p>
             <button className="text-yellow-main border border-yellow-main bg-white py-1 px-4 rounded-full mt-3">
               <Link href="/transaksi/tagihan" passHref={true}>
@@ -81,7 +84,7 @@ export default function Home({ props }) {
                 <img src="logo.svg" className="w-8 inline-block -mt-0.5" />
               </span>
             </h4>
-            <h2 className="text-secondary mt-0.5"></h2>
+            <h2 className="text-secondary mt-0.5">Rp{userData.jumlah_saldo}</h2>
             <p className="subparagraph mt-1.5 underline text-secondary">
               <a>Lihat histori transaksi</a>
             </p>
@@ -228,29 +231,42 @@ export default function Home({ props }) {
           <h3>Riwayat Transaksi</h3>
 
           {/* Box history */}
-          <Link href="transaksi/1" passHref={true}>
-            <a>
-              <HistoryBox
-                product="Pulsa Telkomsel 50.000"
-                id="081312458192"
-                date="3 Januari 2022"
-                total="Rp51.500"
-                status="Berhasil"
-              />
-            </a>
-          </Link>
+          <div className="flex w-full border-2 border-gray-icon mt-2.5 rounded-box">
+            <div className="mx-2.5 my-2.5">
+              <p className="subparagraph font-semibold">
+                Pulsa Telkomsel 50.000
+              </p>
+              <p className="text-8px text-gray-history">081312458192</p>
+              <p className="text-8px text-gray-history">3 Januari 2022</p>
+            </div>
+            <div className="my-auto ml-auto mr-2.5 text-right">
+              <p className="subparagraph font-semibold">Rp51.500</p>
+              <p className="text-8px font-medium text-success flex mt-0.5">
+                <span className="mr-0.5 mt-1px">
+                  <img src="success-icon.svg" alt="success icon"></img>
+                </span>
+                Berhasil
+              </p>
+            </div>
+          </div>
 
-          <Link href="transaksi/1" passHref={true}>
-            <a>
-              <HistoryBox
-                product="Pulsa Telkomsel 50.000"
-                id="081312458192"
-                date="3 Januari 2022"
-                total="Rp51.500"
-                status="Berhasil"
-              />
-            </a>
-          </Link>
+          <div className="flex w-full border-2 border-gray-icon mt-2.5 rounded-box min-h-history-box">
+            <div className="mx-2.5 my-2.5">
+              <p className="subparagraph font-semibold">
+                Tagihan air & sampah (Desember)
+              </p>
+              <p className="text-8px text-gray-history">3 Desember 2021</p>
+            </div>
+            <div className="my-auto ml-auto mr-2.5 text-right">
+              <p className="subparagraph font-semibold">Rp51.500</p>
+              <p className="text-8px font-medium text-success flex mt-0.5">
+                <span className="mr-0.5 mt-1px">
+                  <img src="success-icon.svg" alt="success icon"></img>
+                </span>
+                Berhasil
+              </p>
+            </div>
+          </div>
         </div>
 
         <div className="h-16"></div>

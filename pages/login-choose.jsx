@@ -10,7 +10,7 @@ export default function RegisterChoose() {
 
         {/* Title page */}
         <div className="mb-6 mt-7">
-          <h2>Daftar</h2>
+          <h2>Login</h2>
           <p className="mt-1">Kamu ingin masuk sebagai apa?</p>
         </div>
 

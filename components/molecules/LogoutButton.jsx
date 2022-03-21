@@ -7,7 +7,7 @@ export default function LogoutButton(props) {
   const logout = () => {
     if (role === "pengguna") {
       Cookies.remove("token");
-    } else if (role === "pengururs") {
+    } else if (role === "pengurus") {
       Cookies.remove("token_pengurus");
     }
   };
@@ -16,7 +16,7 @@ export default function LogoutButton(props) {
     <>
       {/* Logout */}
       <Link href="/">
-        <a onClick={logout}>
+        <a onClick={() => {logout()}}>
           <div className="flex">
             <img src="/profil/signout.svg" />
             <div className="flex border-b w-full ml-2 justify-between">

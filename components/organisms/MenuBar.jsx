@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function MenuBar(props) {
   return (
     <div className="flex bg-white fixed bottom-0 h-13 justify-around z-30 max-w-md w-full -ml-4 border-gray-icon border-t-[1px]">
-      <Link href="/home" passHref={true}>
+      <Link href={props.role === "pengurus" ? "/pengurus" : "/home"} passHref={true}>
         <button className="px-3 py-2 w-1/5 max-w-bar min-w-bar cursor-pointer -mt-0.5">
           <a>
             <span className="inline-flex flex-col w-full justify-center items-center">
@@ -35,7 +35,7 @@ export default function MenuBar(props) {
         </button>
       </Link>
 
-      <Link href="/transaksi" passHref={true}>
+      <Link href={props.role === "pengurus" ? "/pengurus/transaksi" : "/transaksi"} passHref={true}>
         <button className="px-3 py-2 w-1/4 max-w-bar min-w-bar cursor-pointer -mt-0.5">
           <a>
             <span className="inline-flex flex-col w-full justify-center items-center">
@@ -89,7 +89,7 @@ export default function MenuBar(props) {
         </button>
       </Link>
 
-      <Link href="/pesan" passHref={true}>
+      <Link href={props.role === "pengurus" ? "/pengurus/pesan" : "/pesan"} passHref={true}>
         <button className="px-3 py-2 w-1/4 max-w-bar min-w-bar cursor-pointer -mt-0.5">
           <a>
             <span className="inline-flex flex-col w-full justify-center items-center">
@@ -121,7 +121,7 @@ export default function MenuBar(props) {
         </button>
       </Link>
 
-      <Link href="/profil" passHref={true}>
+      <Link href={props.role === "pengurus" ? "/pengurus/profil" : "/profil"} passHref={true}>
         <button className="px-3 py-2 w-1/4 max-w-bar min-w-bar cursor-pointer -mt-0.5">
           <a>
             <span className="inline-flex flex-col w-full justify-center items-center">

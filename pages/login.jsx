@@ -37,9 +37,12 @@ export default function Login() {
         requestOptions
       );
       const res = await req.json();
-      console.log(res);
 
-      Cookies.set('token', res.data);
+      if (res.code === 200) {
+        console.log(res);
+        Cookies.set('token', res.data);
+        router.push('/home')
+      }
     } catch (err) {
       console.log(err);
     }

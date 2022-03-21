@@ -5,10 +5,13 @@ import Cookies from "js-cookie";
 
 import LogoutButton from "components/molecules/LogoutButton";
 import MenuBar from "components/organisms/MenuBar";
+import getInitial from "utils/getInitial";
 
 
 export default function Profil() {
-  const [userData, setUserData] = useState({});
+  const [userData, setUserData] = useState({
+    nama: "",
+  });
 
   useEffect(() => {
     const dataFetch = async () => {
@@ -42,7 +45,7 @@ export default function Profil() {
         {/* Identity section */}
         <div className="flex mb-9">
           <div className="w-10 h-10 bg-yellow-main rounded-full">
-            <h2 className="text-white font-bold text-center mt-2.5">LP</h2>
+            <h2 className="text-white font-bold text-center mt-2.5">{getInitial(userData.nama)}</h2>
           </div>
           <div className="ml-7">
             {/* Identity */}
@@ -66,7 +69,7 @@ export default function Profil() {
                 />
               </svg>
               <p className="subparagraph font-normal text-tag my-auto ml-1">
-                Warga
+                Pengurus
               </p>
             </div>
           </div>
@@ -148,7 +151,7 @@ export default function Profil() {
           <LogoutButton role="pengurus" />
         </div>
 
-        <MenuBar currentPage="profil" />
+        <MenuBar currentPage="profil" role="pengurus" />
       </div>
     </>
   );

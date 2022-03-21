@@ -41,6 +41,9 @@ export default function EditPassword() {
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
+        if (response.data.code === 200) {
+          router.push('/pengurus')
+        }
       })
       .catch(function (error) {
         console.log(error);

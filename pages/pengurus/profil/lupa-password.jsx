@@ -11,7 +11,7 @@ export default function Register() {
   const router = useRouter();
   const [inputFields, setInputFields] = useState({
     email: "",
-    password_baru: ""
+    password_baru: "",
   });
 
   const [validateInput, setValidateInput] = useState({
@@ -62,10 +62,20 @@ export default function Register() {
     e.preventDefault();
 
     try {
-      const api = "http://116.193.191.169:3001/api/auth/forget-password?user=pengurus";
-      const request = await axios.post(api, JSON.stringify(inputFields));
-      console.log(request);
-      router.push('/login');
+      const requestOptions = {
+        method: "POST",
+        body: JSON.stringify(inputFields),
+      };
+
+      const req = await fetch(
+        "http://116.193.191.169:3001/api/auth/forget-password?user=pengurus",
+        requestOptions
+      );
+      const res = await req.json();
+
+      if (res.code === 200) {
+        router.replace('../../pengurus/login');
+      }
     } catch (err) {
       console.log(err);
     }

@@ -38,9 +38,11 @@ export default function Login() {
       );
       const res = await req.json();
 
-      Cookies.set('token_pengurus', res.data);
-      router.push('/pengurus');
-      console.log(res);
+      if (res.code === 200) {
+        Cookies.set('token_pengurus', res.data);
+        console.log(res);
+        router.push('/pengurus');
+      }
     } catch (err) {
       console.log(err);
     }
@@ -101,7 +103,7 @@ export default function Login() {
         {/* Button masuk */}
         <div className="mt-3">
           <button className="text-yellow-main bg-white py-3 w-full rounded-full border border-yellow-main">
-            <Link href="./profil/lupa-password">Lupa Password?</Link>
+            <Link href="/profil/lupa-password">Lupa Password?</Link>
           </button>
         </div>
       </div>
