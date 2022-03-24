@@ -1,5 +1,23 @@
+import { authPage } from "middlewares/authPage";
+
 import Image from "next/image";
 import BackButton from "components/atoms/BackButton";
+
+export async function getServerSideProps(context) {
+  const { token } = await authPage(context);
+  if (!token) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/login-choose"
+      }
+    }
+  }
+  
+  return {
+    props: null
+  }
+}
 
 export default function TransactionDetail() {
   return (

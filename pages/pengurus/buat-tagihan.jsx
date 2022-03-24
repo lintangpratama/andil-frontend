@@ -1,9 +1,27 @@
 import { useState } from "react";
 
+import { authPage } from "middlewares/authPage";
+
 import SmallButton from "components/atoms/SmallButton";
 import BackButton from "/components/atoms/BackButton";
 
-export default function Register() {
+export async function getServerSideProps(context) {
+  const { token_pengurus } = await authPage(context);
+  if (!token_pengurus) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/login-choose"
+      }
+    }
+  }
+  
+  return {
+    props: null
+  }
+}
+
+export default function BuatTagihan() {
   const [inputFields, setInputFields] = useState({
     nama_tagihan: "",
     jumlah_tagihan: "",

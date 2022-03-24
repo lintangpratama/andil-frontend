@@ -1,7 +1,25 @@
+import Link from "next/link";
+import { authPage } from "middlewares/authPage";
+
 import MenuBar from "components/organisms/MenuBar";
 import LogoutButton from "components/molecules/LogoutButton";
 
-import Link from "next/link";
+
+export async function getServerSideProps(context) {
+  const { token } = await authPage(context);
+  if (!token) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/login-choose"
+      }
+    }
+  }
+  
+  return {
+    props: null
+  }
+}
 
 export default function Profil() {
   return (

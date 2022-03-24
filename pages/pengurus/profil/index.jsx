@@ -2,11 +2,27 @@ import Link from "next/link";
 
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
+import { authPage } from "middlewares/authPage";
 
 import LogoutButton from "components/molecules/LogoutButton";
 import MenuBar from "components/organisms/MenuBar";
 import getInitial from "utils/getInitial";
 
+export async function getServerSideProps(context) {
+  const { token_pengurus } = await authPage(context);
+  if (!token_pengurus) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/login-choose"
+      }
+    }
+  }
+  
+  return {
+    props: null
+  }
+}
 
 export default function Profil() {
   const [userData, setUserData] = useState({

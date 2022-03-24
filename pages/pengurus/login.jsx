@@ -6,6 +6,22 @@ import Cookies from "js-cookie";
 import BackButton from "components/atoms/BackButton";
 import Link from "next/link";
 
+export async function getServerSideProps(context) {
+  const { token_pengurus } = await authPage(context);
+  if (token_pengurus) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/pengurus"
+      }
+    }
+  }
+  
+  return {
+    props: {}
+  }
+}
+
 export default function Login() {
   const router = useRouter();
   const [inputFields, setInputFields] = useState({

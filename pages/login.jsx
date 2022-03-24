@@ -6,6 +6,22 @@ import Cookies from "js-cookie";
 import BackButton from "components/atoms/BackButton";
 import Link from "next/link";
 
+export async function getServerSideProps(context) {
+  const { token } = await authPage(context);
+  if (token) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/home"
+      }
+    }
+  }
+  
+  return {
+    props: {}
+  }
+}
+
 export default function Login() {
   const router = useRouter();
   const [inputFields, setInputFields] = useState({

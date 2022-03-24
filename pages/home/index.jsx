@@ -4,11 +4,25 @@ import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { FreeMode } from "swiper";
 import Cookies from "js-cookie";
-import axios from "axios";
+import { authPage } from "middlewares/authPage";
 
 import MenuBar from "components/organisms/MenuBar";
 
-// install Swiper modules
+export async function getServerSideProps(context) {
+  const { token } = await authPage(context);
+  if (!token) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/login-choose"
+      }
+    }
+  }
+  
+  return {
+    props: null
+  }
+}
 
 export default function Home() {
   SwiperCore.use([FreeMode]);
@@ -17,24 +31,24 @@ export default function Home() {
 
   useEffect(() => {
     const dataFetch = async () => {
-      var config = {
-        method: "get",
-        url: "http://116.193.191.169:3001/api/pengguna",
-        headers: {
-          Authorization:
-            "Bearer " + Cookies.get('token')
-        },
+      const headers = new Headers();
+      headers.append(
+        "Authorization",
+        "Bearer " + Cookies.get('token')
+      );
+
+      const requestOptions = {
+        method: "GET",
+        headers: headers,
+        redirect: "follow",
       };
 
-      axios(config)
-        .then(function (response) {
-          console.log(JSON.stringify(response.data));
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+      fetch("http://116.193.191.169:3001/api/pengguna", requestOptions)
+        .then((response) => response.text())
+        .then((result) => console.log(result))
+        .catch((error) => console.log("error", error));
     };
-
+    console.log(Cookies.get('token'));
     dataFetch();
   }, []);
 

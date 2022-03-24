@@ -1,14 +1,45 @@
 import Image from "next/image";
 import Link from "next/link";
+import { authPage } from "middlewares/authPage";
+
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Pagination } from "swiper";
 import axios from "axios";
 
-// install Swiper modules
-SwiperCore.use([Pagination]);
+export async function getServerSideProps(context) {
+  const { token, token_pengurus } = await authPage(context);
+  if (token && token_pengurus) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/login-choose",
+      },
+    };
+  } else if (token) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/home",
+      },
+    };
+  } else if (token_pengurus) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/pengurus",
+      },
+    };
+  } else {
+    return {
+      props: {},
+    };
+  }
+}
 
 export default function Home() {
+  // install Swiper modules
+  SwiperCore.use([Pagination]);
   return (
     <>
       <div className="mx-4 my-5">
@@ -86,4 +117,3 @@ export default function Home() {
     </>
   );
 }
-

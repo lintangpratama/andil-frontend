@@ -1,5 +1,24 @@
-import MenuBar from "components/organisms/MenuBar";
 import Link from "next/link";
+
+import { authPage } from "middlewares/authPage";
+import MenuBar from "components/organisms/MenuBar";
+
+
+export async function getServerSideProps(context) {
+  const { token_pengurus } = await authPage(context);
+  if (!token_pengurus) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/login-choose"
+      }
+    }
+  }
+  
+  return {
+    props: null
+  }
+}
 
 export default function Pesan() {
   return (

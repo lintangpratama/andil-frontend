@@ -1,15 +1,31 @@
 import Link from "next/link";
-
-import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { FreeMode } from "swiper";
 import { useEffect, useState } from "react";
+import SwiperCore, { FreeMode } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
 import Cookies from "js-cookie";
+
+import { authPage } from "middlewares/authPage";
 
 import MenuBar from "components/organisms/MenuBar";
 
-// install Swiper modules
+export async function getServerSideProps(context) {
+  const { token_pengurus } = await authPage(context);
+  if (!token_pengurus) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/login-choose"
+      }
+    }
+  }
+  
+  return {
+    props: {}
+  }
+}
 
-export default function Home() {
+export default function Home(props) {
+
   SwiperCore.use([FreeMode]);
 
   const [userData, setUserData] = useState({})

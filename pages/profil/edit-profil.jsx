@@ -1,11 +1,28 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { authPage } from "middlewares/authPage";
 
 import Cookies from 'js-cookie'
 
 import DangerInput from "components/atoms/DangerInput";
 import SmallButton from "components/atoms/SmallButton";
 import BackButton from "components/atoms/BackButton";
+
+export async function getServerSideProps(context) {
+  const { token } = await authPage(context);
+  if (!token) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/login-choose"
+      }
+    }
+  }
+  
+  return {
+    props: null
+  }
+}
 
 export default function EditProfil() {
   const router = useRouter();
@@ -104,7 +121,7 @@ export default function EditProfil() {
       .then((result) => {
         console.log(result);
         if (result.code === 200) {
-          router.push('/home');
+          router.push('/profil');
         }
       })
       .catch((error) => console.log("error", error));

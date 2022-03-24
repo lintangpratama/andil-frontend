@@ -1,17 +1,34 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 
+import { authPage } from "middlewares/authPage";
 import axios from "axios";
 import Cookies from "js-cookie";
 
 import SmallButton from "components/atoms/SmallButton";
 import BackButton from "components/atoms/BackButton";
 
+export async function getServerSideProps(context) {
+  const { token } = await authPage(context);
+  if (!token) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/login-choose"
+      }
+    }
+  }
+  
+  return {
+    props: null
+  }
+}
+
 export default function EditPassword() {
   const router = useRouter();
   const [inputFields, setInputFields] = useState({
     password_lama: "",
-    password_baru: "",
+    password_baru: ""
   });
 
   const inputTextHandler = (e) => {
