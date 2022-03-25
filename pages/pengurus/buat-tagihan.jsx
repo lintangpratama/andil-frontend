@@ -100,7 +100,7 @@ export default function BuatTagihan() {
 
         {/* Register button */}
         <div className="mt-9">
-          <SmallButton message="Buat Tagihan" onSubmit={submitFormHandler} />
+          <SmallButton message="Buat Tagihan" img="../../loading-btn.gif" onSubmit={submitFormHandler} />
         </div>
       </div>
     </>

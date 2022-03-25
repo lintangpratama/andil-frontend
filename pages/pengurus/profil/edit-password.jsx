@@ -128,7 +128,7 @@ export default function EditPassword() {
 
           {/* Register button */}
           <div className="mt-9">
-            <SmallButton message="Ubah Password" onClick={submitFormHandler} />
+            <SmallButton message="Ubah Password" img="../../../loading-btn.gif" onClick={submitFormHandler} />
           </div>
         </div>
       </>

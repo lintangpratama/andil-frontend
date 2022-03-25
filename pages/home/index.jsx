@@ -28,7 +28,8 @@ export async function getServerSideProps(context) {
 export default function Home() {
   SwiperCore.use([FreeMode]);
   const [userData, setUserData] = useState({
-    jumlah_saldo: 0
+    jumlah_saldo: 0,
+    nama: ""
   });
   const monthlyBill = 100000;
 
@@ -47,7 +48,7 @@ export default function Home() {
       };
 
       fetch("http://116.193.191.169:3001/api/pengguna", requestOptions)
-        .then((response) => response.text())
+        .then((response) => response.json())
         .then((result) => console.log(result))
         .catch((error) => console.log("error", error));
     };

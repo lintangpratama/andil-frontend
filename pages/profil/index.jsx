@@ -1,9 +1,14 @@
 import Link from "next/link";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import Cookies from "js-cookie";
+
 import { authPage } from "middlewares/authPage";
+
 
 import MenuBar from "components/organisms/MenuBar";
 import LogoutButton from "components/molecules/LogoutButton";
-
+import getInitial from "utils/getInitial";
 
 export async function getServerSideProps(context) {
   const { token } = await authPage(context);
@@ -11,30 +16,57 @@ export async function getServerSideProps(context) {
     return {
       redirect: {
         permanent: false,
-        destination: "/login-choose"
-      }
-    }
+        destination: "/login-choose",
+      },
+    };
   }
-  
+
   return {
-    props: {}
-  }
+    props: {},
+  };
 }
 
 export default function Profil() {
+  const [userData, setUserData] = useState({
+    nama: "",
+  });
+
+  useEffect(() => {
+    const dataFetch = async () => {
+      var config = {
+        method: "get",
+        url: "http://116.193.191.169:3001/api/pengguna",
+        headers: {
+          Authorization:
+            "Bearer " + Cookies.get('token'),
+        },
+      };
+
+      axios(config)
+        .then(function (response) {
+          console.log(JSON.stringify(response.data));
+          setUserData(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    };
+    dataFetch();
+  }, []);
+
   return (
     <>
       <div className="mx-4 my-5">
         {/* Identity section */}
         <div className="flex mb-9">
           <div className="w-10 h-10 bg-yellow-main rounded-full">
-            <h2 className="text-white font-bold text-center mt-2.5">LP</h2>
+            <h2 className="text-white font-bold text-center mt-2.5">{getInitial(userData.nama)}</h2>
           </div>
           <div className="ml-7">
             {/* Identity */}
-            <h2 className="font-bold">Lintang Pratama</h2>
-            <p className="">lintangajiyogapratama@gmail.com</p>
-            <p className="">+6285873527593</p>
+            <h2 className="font-bold">{userData.nama}</h2>
+            <p className="">{userData.email}</p>
+            <p className="">{userData.no_handphone}</p>
 
             {/* Role tag */}
             <div className="flex bg-role-tag px-1 py-0.5 rounded-full w-fit mt-2">

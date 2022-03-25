@@ -233,7 +233,7 @@ export default function EditProfil() {
 
         {/* Register button */}
         <div className="mt-9">
-          <SmallButton message="Daftar" onClick={submitFormHandler} />
+          <SmallButton message="Daftar" img="../../../loading-btn.gif" onClick={submitFormHandler} />
         </div>
       </div>
     </>

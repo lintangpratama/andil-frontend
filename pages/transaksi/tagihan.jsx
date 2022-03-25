@@ -102,7 +102,7 @@ export default function Register() {
 
         {/* Register button */}
         <div className="mt-9">
-          <SmallButton message="Bayar Tagihan" onSubmit={submitFormHandler} />
+          <SmallButton message="Bayar Tagihan" img="../../loading-btn.gif" onSubmit={submitFormHandler} />
         </div>
       </div>
     </>

@@ -26,6 +26,7 @@ export async function getServerSideProps(context) {
 
 export default function Login() {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false)
   const [inputFields, setInputFields] = useState({
     email: "",
     password: ""
@@ -128,10 +129,16 @@ export default function Login() {
         {/* Button masuk */}
         <div className="mt-9">
           <button
-            onClick={submitFormHandler}
-            className="text-white bg-yellow-main py-3 w-full rounded-full"
+            onClick={(e) => {
+              e.preventDefault();
+              setIsLoading(true);
+              submitFormHandler(e);
+              setIsLoading(false);
+            }}
+            className="text-white flex justify-center bg-yellow-main py-3 w-full rounded-full"
           >
             Masuk
+            {isLoading ? <img src="../../loading-btn.gif" className="w-4 ml-1" /> : <></>}
           </button>
         </div>
 

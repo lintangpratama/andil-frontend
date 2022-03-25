@@ -4,6 +4,7 @@ import "styles/custom-sweetalert.css";
 import "swiper/css";
 import "swiper/css/pagination";
 
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 
@@ -27,15 +28,21 @@ function MyApp({ Component, pageProps }) {
   }, [router]);
 
   return (
-    <div className="flex flex-col">
-      <div className="h-full bg-gray-100">
-        <div className="block box-border bg-white max-w-md w-full mx-auto h-full">
-          <div className="flex flex-col min-h-screen max-h-full">
-            {pageLoading ? <Loading /> : <Component {...pageProps} />}
+    <>
+      <Head>
+        <title>Andil — Bantu Kamu Buat #LangsungBayar</title>
+        <link rel="icon" type="image/x-icon" href="andil_logo.svg" />
+      </Head>
+      <div className="flex flex-col">
+        <div className="h-full bg-gray-100">
+          <div className="block box-border bg-white max-w-md w-full mx-auto h-full">
+            <div className="flex flex-col min-h-screen max-h-full">
+              {pageLoading ? <Loading /> : <Component {...pageProps} />}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
