@@ -1,5 +1,6 @@
 import "styles/globals.css";
 import "styles/custom-swiper.css";
+import "styles/custom-sweetalert.css";
 import "swiper/css";
 import "swiper/css/pagination";
 

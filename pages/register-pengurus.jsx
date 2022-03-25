@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+
 import axios from "axios";
+import Swal from "sweetalert2";
 
 import SmallButton from "components/atoms/SmallButton";
 import DangerInput from "components/atoms/DangerInput";
 import BackButton from "components/atoms/BackButton";
-
 
 export default function Register() {
   const router = useRouter();
@@ -74,8 +75,32 @@ export default function Register() {
     try {
       const api = "http://116.193.191.169:3001/api/auth/register?user=pengurus";
       const request = await axios.post(api, JSON.stringify(inputFields));
-      router.push('pengurus/login')
+      if (request.status === 200) {
+        Swal.fire({
+          title: "Sukses!",
+          text: "Registrasi akunmu telah berhasil",
+          icon: "success",
+          confirmButtonText: "Okay",
+          width: "300px",
+        });
+        router.push("pengurus/login");
+      } else {
+        Swal.fire({
+          title: "Gagal!",
+          text: "Registrasi akunmu gagal. Coba lagi, ya!",
+          icon: "error",
+          confirmButtonText: "Okay",
+          width: "300px",
+        });
+      }
     } catch (err) {
+      Swal.fire({
+        title: "Gagal!",
+        text: "Registrasi akunmu gagal. Coba lagi, ya!",
+        icon: "error",
+        confirmButtonText: "Okay",
+        width: "300px",
+      });
       console.log(err);
     }
   };
@@ -285,7 +310,7 @@ export default function Register() {
               <option key={provinsi.id} value={provinsi.name}>
                 {provinsi.name}
               </option>
-             ))}
+            ))}
           </select>
         </div>
 
@@ -410,6 +435,7 @@ export default function Register() {
           <DangerInput
             logic={validateInput.email.isValid}
             msg="Format email salah. Coba masukkan lagi, ya"
+            icon="attention.svg"
           />
         </div>
 
@@ -430,6 +456,7 @@ export default function Register() {
           <DangerInput
             logic={validateInput.phone.isValid}
             msg="Format nomor HP salah. Coba masukkan lagi, ya"
+            icon="attention.svg"
           />
         </div>
 

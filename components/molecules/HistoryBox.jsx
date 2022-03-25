@@ -1,4 +1,4 @@
-export default function HistoryBox({ product, id, date, total, status }) {
+export default function HistoryBox({ product, id, date, total, status, icon }) {
   return (
     <div className="flex w-full border-2 border-gray-icon mt-2.5 rounded-box">
       <div className="mx-2.5 my-2.5">
@@ -10,7 +10,7 @@ export default function HistoryBox({ product, id, date, total, status }) {
         <p className="subparagraph font-semibold text-right">{total}</p>
         <p className="text-8px font-medium text-success flex mt-0.5">
           <span className="mr-0.5 mt-1px ml-auto">
-            <img src="success-icon.svg" alt="success icon"></img>
+            <img src={icon} alt="success icon"></img>
           </span>
           {status}
         </p>

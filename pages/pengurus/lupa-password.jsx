@@ -1,27 +1,12 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
+import Swal from "sweetalert2";
 
 import { authPage } from "middlewares/authPage";
 
 import DangerInput from "components/atoms/DangerInput";
 import SmallButton from "components/atoms/SmallButton";
 import BackButton from "components/atoms/BackButton";
-
-export async function getServerSideProps(context) {
-  const { token_pengurus } = await authPage(context);
-  if (!token_pengurus) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: "/login-choose"
-      }
-    }
-  }
-  
-  return {
-    props: null
-  }
-}
 
 export default function Register() {
   const router = useRouter();
@@ -90,10 +75,32 @@ export default function Register() {
       const res = await req.json();
 
       if (res.code === 200) {
-        router.replace('../../pengurus/login');
+        Swal.fire({
+          title: "Berhasil!",
+          text: "Yey! Password berhasil diubah!",
+          icon: "success",
+          confirmButtonText: "Okay",
+          width: "300px",
+        });
+        router.push('../../pengurus/login');
+      } else {
+        Swal.fire({
+          title: "Gagal!",
+          text: "Ups, password gagal diganti. Coba lagi, ya!",
+          icon: "error",
+          confirmButtonText: "Okay",
+          width: "300px",
+        });
       }
     } catch (err) {
       console.log(err);
+      Swal.fire({
+        title: "Gagal!",
+        text: "Ups, password gagal diganti. Coba lagi, ya!",
+        icon: "error",
+        confirmButtonText: "Okay",
+        width: "300px",
+      });
     }
   };
 

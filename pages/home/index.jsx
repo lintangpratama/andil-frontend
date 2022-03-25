@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { FreeMode } from "swiper";
 import Cookies from "js-cookie";
+
 import { authPage } from "middlewares/authPage";
 
 import MenuBar from "components/organisms/MenuBar";
+import rupiahFormat from "utils/rupiahFormat";
 
 export async function getServerSideProps(context) {
   const { token } = await authPage(context);
@@ -20,14 +21,16 @@ export async function getServerSideProps(context) {
   }
   
   return {
-    props: null
+    props: {}
   }
 }
 
 export default function Home() {
   SwiperCore.use([FreeMode]);
-  const [userData, setUserData] = useState({});
-  const monthlyBill = "Rp120.000";
+  const [userData, setUserData] = useState({
+    jumlah_saldo: 0
+  });
+  const monthlyBill = 100000;
 
   useEffect(() => {
     const dataFetch = async () => {
@@ -77,7 +80,7 @@ export default function Home() {
           <div className="mt-3">
             <h2 className="text-white">Halo, {userData.nama}!</h2>
             <p className="mt-1 text-white">
-              Tagihan kamu bulan ini adalah sebesar <br /> {monthlyBill}
+              Tagihan kamu bulan ini adalah sebesar <br /> {rupiahFormat(monthlyBill)}
             </p>
             <button className="text-yellow-main border border-yellow-main bg-white py-1 px-4 rounded-full mt-3">
               <Link href="/transaksi/tagihan" passHref={true}>
@@ -98,7 +101,7 @@ export default function Home() {
                 <img src="logo.svg" className="w-8 inline-block -mt-0.5" />
               </span>
             </h4>
-            <h2 className="text-secondary mt-0.5">Rp{userData.jumlah_saldo}</h2>
+            <h2 className="text-secondary mt-0.5">{rupiahFormat(userData.jumlah_saldo)}</h2>
             <p className="subparagraph mt-1.5 underline text-secondary">
               <a>Lihat histori transaksi</a>
             </p>

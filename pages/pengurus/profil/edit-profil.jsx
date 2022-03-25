@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Cookies from 'js-cookie'
+import Swal from "sweetalert2";
 
 import { authPage } from "middlewares/authPage";
 
@@ -20,7 +21,7 @@ export async function getServerSideProps(context) {
   }
   
   return {
-    props: null
+    props: {}
   }
 }
 
@@ -121,10 +122,34 @@ export default function EditProfil() {
       .then((result) => {
         console.log(result);
         if (result.code === 200) {
-          router.push('../');
+          Swal.fire({
+            title: "Berhasil!",
+            text: "Kamu telah berhasil mengubah datamu!",
+            icon: "success",
+            confirmButtonText: "Okay",
+            width: "300px",
+          });
+          router.push('/pengurus/profil');
+        } else {
+          Swal.fire({
+            title: "Gagal!",
+            text: "Ubah data akun gagal. Coba lagi, ya!",
+            icon: "error",
+            confirmButtonText: "Okay",
+            width: "300px",
+          });
         }
       })
-      .catch((error) => console.log("error", error));
+      .catch((error) => {
+        console.log("error", error);
+        Swal.fire({
+          title: "Gagal!",
+          text: "Ubah data akun gagal. Coba lagi, ya!",
+          icon: "error",
+          confirmButtonText: "Okay",
+          width: "300px",
+        });
+      });
   };
 
   return (
@@ -168,6 +193,7 @@ export default function EditProfil() {
           <DangerInput
             logic={validateInput.email.isValid}
             msg="Format email salah. Coba masukkan lagi, ya"
+            icon="../../../attention.svg"
           />
         </div>
 
@@ -189,6 +215,7 @@ export default function EditProfil() {
           <DangerInput
             logic={validateInput.phone.isValid}
             msg="Format nomor HP salah. Coba masukkan lagi, ya"
+            icon="../../../attention.svg"
           />
         </div>
 

@@ -1,10 +1,12 @@
+import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import axios from "axios";
 import Cookies from "js-cookie";
 
+import Swal from "sweetalert2";
+
+import { authPage } from "middlewares/authPage";
 import BackButton from "components/atoms/BackButton";
-import Link from "next/link";
 
 export async function getServerSideProps(context) {
   const { token } = await authPage(context);
@@ -12,21 +14,21 @@ export async function getServerSideProps(context) {
     return {
       redirect: {
         permanent: false,
-        destination: "/home"
-      }
-    }
+        destination: "/home",
+      },
+    };
   }
-  
+
   return {
-    props: {}
-  }
+    props: {},
+  };
 }
 
 export default function Login() {
   const router = useRouter();
   const [inputFields, setInputFields] = useState({
     email: "",
-    password: ""
+    password: "",
   });
 
   const inputTextHandler = (e) => {
@@ -34,7 +36,7 @@ export default function Login() {
 
     setInputFields({
       ...inputFields,
-      [getInputText]: e.target.value
+      [getInputText]: e.target.value,
     });
   };
 
@@ -45,7 +47,7 @@ export default function Login() {
       const requestOptions = {
         method: "POST",
         body: JSON.stringify(inputFields),
-        redirect: "follow"
+        redirect: "follow",
       };
 
       const req = await fetch(
@@ -56,10 +58,25 @@ export default function Login() {
 
       if (res.code === 200) {
         console.log(res);
-        Cookies.set('token', res.data);
-        router.push('/home')
+        Cookies.set("token", res.data);
+        router.push("/home");
+      } else {
+        Swal.fire({
+          title: "Gagal!",
+          text: "Login gagal. Coba lagi, ya!",
+          icon: "error",
+          confirmButtonText: "Okay",
+          width: "300px",
+        });
       }
     } catch (err) {
+      Swal.fire({
+        title: "Gagal!",
+        text: "Login gagal. Coba lagi, ya!",
+        icon: "error",
+        confirmButtonText: "Okay",
+        width: "300px",
+      });
       console.log(err);
     }
   };

@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { authPage } from "middlewares/authPage";
+import Cookies from "js-cookie";
+import Swal from "sweetalert2";
 
-import Cookies from 'js-cookie'
+import { authPage } from "middlewares/authPage";
 
 import DangerInput from "components/atoms/DangerInput";
 import SmallButton from "components/atoms/SmallButton";
@@ -14,14 +15,14 @@ export async function getServerSideProps(context) {
     return {
       redirect: {
         permanent: false,
-        destination: "/login-choose"
-      }
-    }
+        destination: "/login-choose",
+      },
+    };
   }
-  
+
   return {
-    props: null
-  }
+    props: {},
+  };
 }
 
 export default function EditProfil() {
@@ -30,7 +31,7 @@ export default function EditProfil() {
     nama: "",
     email: "",
     no_handphone: "",
-    alamat: ""
+    alamat: "",
   });
   const [validateInput, setValidateInput] = useState({
     phone: {
@@ -104,16 +105,13 @@ export default function EditProfil() {
     e.preventDefault();
 
     const myHeaders = new Headers();
-    myHeaders.append(
-      "Authorization",
-      "Bearer " + Cookies.get("token")
-    );
+    myHeaders.append("Authorization", "Bearer " + Cookies.get("token"));
 
     var requestOptions = {
       method: "PUT",
       headers: myHeaders,
       body: JSON.stringify(inputFields),
-      redirect: "follow"
+      redirect: "follow",
     };
 
     fetch("http://116.193.191.169:3001/api/pengguna/profile", requestOptions)
@@ -121,10 +119,34 @@ export default function EditProfil() {
       .then((result) => {
         console.log(result);
         if (result.code === 200) {
-          router.push('/profil');
+          Swal.fire({
+            title: "Berhasil!",
+            text: "Kamu telah berhasil mengubah datamu!",
+            icon: "success",
+            confirmButtonText: "Okay",
+            width: "300px",
+          });
+          router.push("/profil");
+        } else {
+          Swal.fire({
+            title: "Gagal!",
+            text: "Ubah data akun gagal. Coba lagi, ya!",
+            icon: "error",
+            confirmButtonText: "Okay",
+            width: "300px",
+          });
         }
       })
-      .catch((error) => console.log("error", error));
+      .catch((error) => {
+        Swal.fire({
+          title: "Gagal!",
+          text: "Ubah data akun gagal. Coba lagi, ya!",
+          icon: "error",
+          confirmButtonText: "Okay",
+          width: "300px",
+        });
+        console.log("error", error);
+      });
   };
 
   return (
@@ -168,6 +190,7 @@ export default function EditProfil() {
           <DangerInput
             logic={validateInput.email.isValid}
             msg="Format email salah. Coba masukkan lagi, ya"
+            icon="../../attention.svg"
           />
         </div>
 
@@ -189,6 +212,7 @@ export default function EditProfil() {
           <DangerInput
             logic={validateInput.phone.isValid}
             msg="Format nomor HP salah. Coba masukkan lagi, ya"
+            icon="../../attention.svg"
           />
         </div>
 

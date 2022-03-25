@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 
 import Cookies from "js-cookie";
+import { authPage } from "middlewares/authPage";
+import Swal from "sweetalert2";
 
 import BackButton from "components/atoms/BackButton";
 import Link from "next/link";
@@ -58,10 +60,27 @@ export default function Login() {
         Cookies.set('token_pengurus', res.data);
         console.log(res);
         router.push('/pengurus');
+      } else {
+        Swal.fire({
+          title: "Gagal!",
+          text: "Login gagal. Coba lagi, ya!",
+          icon: "error",
+          confirmButtonText: "Okay",
+          width: "300px",
+        });
       }
     } catch (err) {
       console.log(err);
+      Swal.fire({
+        title: "Gagal!",
+        text: "Login gagal. Coba lagi, ya!",
+        icon: "error",
+        confirmButtonText: "Okay",
+        width: "300px",
+      });
     }
+    
+    
   };
 
   return (
@@ -119,7 +138,7 @@ export default function Login() {
         {/* Button masuk */}
         <div className="mt-3">
           <button className="text-yellow-main bg-white py-3 w-full rounded-full border border-yellow-main">
-            <Link href="/profil/lupa-password">Lupa Password?</Link>
+            <Link href="/pengurus/lupa-password">Lupa Password?</Link>
           </button>
         </div>
       </div>

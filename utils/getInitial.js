@@ -11,6 +11,6 @@ export default function getInitial(name) {
     const firstNameInitial = firstName[0];
     const lastNameInitial = lastName[0];
 
-    return { firstNameInitial, lastNameInitial };
+    return firstNameInitial + lastNameInitial;
   }
 }

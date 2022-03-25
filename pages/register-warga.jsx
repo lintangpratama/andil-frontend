@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
+import Swal from "sweetalert2";
 
 import axios from "axios";
 
@@ -80,8 +81,6 @@ export default function Register() {
       ...inputFields,
       [getInputText]: e.target.value,
     });
-
-    console.log(inputFields);
   };
 
   const submitFormHandler = async (e) => {
@@ -91,11 +90,34 @@ export default function Register() {
       const api = "http://116.193.191.169:3001/api/auth/register?user=pengguna";
       const request = await axios.post(api, JSON.stringify(inputFields));
       console.log(request);
-      router.push('/')
+      if (request.status === 200) {
+        Swal.fire({
+          title: "Sukses!",
+          text: "Registrasi akunmu telah berhasil",
+          icon: "success",
+          confirmButtonText: "Okay",
+          width: "300px",
+        });
+        router.push("/");
+      } else {
+        Swal.fire({
+          title: "Gagal!",
+          text: "Registrasi akunmu gagal. Coba lagi, ya!",
+          icon: "error",
+          confirmButtonText: "Okay",
+          width: "300px",
+        });
+      }
     } catch (err) {
+      Swal.fire({
+        title: "Gagal!",
+        text: "Registrasi akunmu gagal. Coba lagi, ya!",
+        icon: "error",
+        confirmButtonText: "Okay",
+        width: "300px",
+      });
       console.log(err);
     }
-    
   };
 
   return (
@@ -140,6 +162,7 @@ export default function Register() {
           <DangerInput
             logic={validateInput.email.isValid}
             msg="Format email salah. Coba masukkan lagi, ya"
+            icon="attention.svg"
           />
         </div>
 
@@ -161,6 +184,7 @@ export default function Register() {
           <DangerInput
             logic={validateInput.phone.isValid}
             msg="Format nomor HP salah. Coba masukkan lagi, ya"
+            icon="attention.svg"
           />
         </div>
 

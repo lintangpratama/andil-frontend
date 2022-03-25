@@ -4,8 +4,8 @@ import Image from "next/image";
 import BackButton from "components/atoms/BackButton";
 
 export async function getServerSideProps(context) {
-  const { token } = await authPage(context);
-  if (!token) {
+  const { token_pengurus } = await authPage(context);
+  if (!token_pengurus) {
     return {
       redirect: {
         permanent: false,

@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import SwiperCore, { FreeMode } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, { FreeMode } from "swiper";
 import Cookies from "js-cookie";
 
 import { authPage } from "middlewares/authPage";
+import rupiahFormat from "utils/rupiahFormat";
 
 import MenuBar from "components/organisms/MenuBar";
 
@@ -14,22 +15,23 @@ export async function getServerSideProps(context) {
     return {
       redirect: {
         permanent: false,
-        destination: "/login-choose"
-      }
-    }
+        destination: "/login-choose",
+      },
+    };
   }
-  
+
   return {
     props: {}
-  }
+  };
 }
 
 export default function Home(props) {
-
   SwiperCore.use([FreeMode]);
 
-  const [userData, setUserData] = useState({})
-  const monthlyBill = "Rp120.000";
+  const [userData, setUserData] = useState({
+    jumlah_saldo: ""
+  });
+  const monthlyBill = rupiahFormat(20000)
 
   useEffect(() => {
     const dataFetch = async () => {
@@ -50,7 +52,7 @@ export default function Home(props) {
         requestOptions
       );
       const res = await req.json();
-      
+
       setUserData(res.data);
       console.log(res.data);
     };
@@ -104,7 +106,7 @@ export default function Home(props) {
                 <img src="logo.svg" className="w-8 inline-block -mt-0.5" />
               </span>
             </h4>
-            <h2 className="text-secondary mt-0.5">Rp{userData.jumlah_saldo}</h2>
+            <h2 className="text-secondary mt-0.5">{rupiahFormat(userData.jumlah_saldo)}</h2>
             <p className="subparagraph mt-1.5 underline text-secondary">
               <a>Lihat histori transaksi</a>
             </p>

@@ -1,28 +1,11 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { authPage } from "middlewares/authPage";
-
 import axios from "axios";
+import Swal from "sweetalert2";
 
 import DangerInput from "components/atoms/DangerInput";
 import SmallButton from "components/atoms/SmallButton";
 import BackButton from "components/atoms/BackButton";
-
-export async function getServerSideProps(context) {
-  const { token } = await authPage(context);
-  if (!token) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: "/login-choose"
-      }
-    }
-  }
-  
-  return {
-    props: null
-  }
-}
 
 export default function Register() {
   const router = useRouter();
@@ -79,11 +62,36 @@ export default function Register() {
     e.preventDefault();
 
     try {
-      const api = "http://116.193.191.169:3001/api/auth/forget-password?user=pengguna";
+      const api =
+        "http://116.193.191.169:3001/api/auth/forget-password?user=pengguna";
       const request = await axios.post(api, JSON.stringify(inputFields));
       console.log(request);
-      router.push('/login');
+      if (request.status === 200) {
+        Swal.fire({
+          title: "Berhasil!",
+          text: "Yey! Password berhasil diubah!",
+          icon: "success",
+          confirmButtonText: "Okay",
+          width: "300px",
+        });
+        router.push("/login");
+      } else {
+        Swal.fire({
+          title: "Gagal!",
+          text: "Ups, password gagal diganti. Coba lagi, ya!",
+          icon: "error",
+          confirmButtonText: "Okay",
+          width: "300px",
+        });
+      }
     } catch (err) {
+      Swal.fire({
+        title: "Gagal!",
+        text: "Ups, password gagal diganti. Coba lagi, ya!",
+        icon: "error",
+        confirmButtonText: "Okay",
+        width: "300px",
+      });
       console.log(err);
     }
   };
@@ -119,6 +127,7 @@ export default function Register() {
           <DangerInput
             logic={validateInput.email.isValid}
             msg="Format email salah. Coba masukkan lagi, ya"
+            icon="../../attention.svg"
           />
         </div>
 

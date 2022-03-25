@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import Cookies from "js-cookie";
+import Swal from "sweetalert2";
 
 import { authPage } from "middlewares/authPage";
 
@@ -20,7 +21,7 @@ export async function getServerSideProps(context) {
   }
   
   return {
-    props: null
+    props: {}
   }
 }
 
@@ -59,11 +60,33 @@ export default function EditPassword() {
       .then(function (response) {
         console.log(JSON.stringify(response.data));
         if (response.data.code === 200) {
-          router.push('/pengurus')
+          Swal.fire({
+            title: "Berhasil!",
+            text: "Kamu telah berhasil mengubah passwordmu!",
+            icon: "success",
+            confirmButtonText: "Okay",
+            width: "300px",
+          });
+          router.push('/pengurus/profil')
+        } else {
+          Swal.fire({
+            title: "Gagal!",
+            text: "Ups, password gagal diganti. Coba lagi, ya!",
+            icon: "error",
+            confirmButtonText: "Okay",
+            width: "300px",
+          });
         }
       })
       .catch(function (error) {
         console.log(error);
+        Swal.fire({
+          title: "Gagal!",
+          text: "Ups, password gagal diganti. Coba lagi, ya!",
+          icon: "error",
+          confirmButtonText: "Okay",
+          width: "300px",
+        });
       });
   };
 

@@ -18,7 +18,7 @@ export async function getServerSideProps(context) {
   }
   
   return {
-    props: null
+    props: {}
   }
 }
 
@@ -64,6 +64,7 @@ export default function Transaksi() {
                 date={data.date}
                 total={data.total}
                 status={data.status}
+                icon="../../../success-icon.svg"
               />
             </a>
           </Link>

@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-
-import { authPage } from "middlewares/authPage";
 import axios from "axios";
 import Cookies from "js-cookie";
+import Swal from "sweetalert2";
+
+import { authPage } from "middlewares/authPage";
 
 import SmallButton from "components/atoms/SmallButton";
 import BackButton from "components/atoms/BackButton";
@@ -14,21 +15,21 @@ export async function getServerSideProps(context) {
     return {
       redirect: {
         permanent: false,
-        destination: "/login-choose"
-      }
-    }
+        destination: "/login-choose",
+      },
+    };
   }
-  
+
   return {
-    props: null
-  }
+    props: {},
+  };
 }
 
 export default function EditPassword() {
   const router = useRouter();
   const [inputFields, setInputFields] = useState({
     password_lama: "",
-    password_baru: ""
+    password_baru: "",
   });
 
   const inputTextHandler = (e) => {
@@ -46,17 +47,13 @@ export default function EditPassword() {
     e.preventDefault();
 
     const myHeaders = new Headers();
-    myHeaders.append(
-      "Authorization",
-      "Bearer " + Cookies.get('token')
-    );
-
+    myHeaders.append("Authorization", "Bearer " + Cookies.get("token"));
 
     const requestOptions = {
       method: "PUT",
       headers: myHeaders,
       body: JSON.stringify(inputFields),
-      redirect: "follow"
+      redirect: "follow",
     };
 
     fetch(
@@ -66,14 +63,35 @@ export default function EditPassword() {
       .then((response) => response.json())
       .then((result) => {
         console.log(result);
-        if (result.code === 200)  {
-
-          router.push('/profil')
+        if (result.code === 200) {
+          Swal.fire({
+            title: "Berhasil!",
+            text: "Kamu telah berhasil mengubah passwordmu!",
+            icon: "success",
+            confirmButtonText: "Okay",
+            width: "300px",
+          });
+          router.push("/profil");
         } else {
-          alert('Password salah')
+          Swal.fire({
+            title: "Gagal!",
+            text: "Ups, password gagal diganti. Coba lagi, ya!",
+            icon: "error",
+            confirmButtonText: "Okay",
+            width: "300px",
+          });
         }
       })
-      .catch((error) => console.log("error", error));
+      .catch((error) => {
+        Swal.fire({
+          title: "Gagal!",
+          text: "Ups, password gagal diganti. Coba lagi, ya!",
+          icon: "error",
+          confirmButtonText: "Okay",
+          width: "300px",
+        });
+        console.log("error", error);
+      });
   };
 
   return (
