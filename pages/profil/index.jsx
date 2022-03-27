@@ -44,8 +44,9 @@ export default function Profil() {
 
       axios(config)
         .then(function (response) {
-          console.log(JSON.stringify(response.data));
-          setUserData(response.data);
+          console.log(response.data.data);
+          setUserData(response.data.data);
+          console.log(userData);
         })
         .catch(function (error) {
           console.log(error);

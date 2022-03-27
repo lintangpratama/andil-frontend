@@ -6,7 +6,7 @@ import Cookies from "js-cookie";
 
 import { authPage } from "middlewares/authPage";
 
-import MenuBar from "components/organisms/MenuBar";
+import MenuBar from "components/organisms/MenuBar/index";
 import rupiahFormat from "utils/rupiahFormat";
 
 export async function getServerSideProps(context) {
@@ -49,7 +49,7 @@ export default function Home() {
 
       fetch("http://116.193.191.169:3001/api/pengguna", requestOptions)
         .then((response) => response.json())
-        .then((result) => console.log(result))
+        .then((result) => setUserData(result.data))
         .catch((error) => console.log("error", error));
     };
     console.log(Cookies.get('token'));
@@ -115,7 +115,7 @@ export default function Home() {
         </div>
 
         {/* Main categories */}
-        <div className="grid grid-cols-4 gap-9 mx-8 mt-1">
+        <div className="grid grid-cols-4 justify-items-center gap-9 mx-8 mt-1">
           {/* Pulsa */}
           <div>
             <div className="flex items-center w-10 h-10 bg-blue-icon mx-auto rounded-box">
