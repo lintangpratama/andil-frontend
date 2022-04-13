@@ -1,13 +1,9 @@
 FROM node:lts-alpine3.15 as base
-WORKDIR /opt
-COPY package*.json ./
-RUN npm ci --production && npm cache clean --force
-
-FROM base as prod
-ENV PATH=/opt/node_modules/.bin:$PATH
-WORKDIR /opt/app
+WORKDIR /app
+COPY package.json .
+COPY package-lock.json .
+RUN npm install
 COPY . .
-RUN npm run build 
-EXPOSE 3000
-CMD npm run start
-HEALTHCHECK CMD curl --fail http://localhost:300 || exit 1
+CMD ["npm", "start"]
+EXPOSE 8080
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD [ "npm", "start" ]
