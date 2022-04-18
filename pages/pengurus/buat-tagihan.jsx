@@ -41,16 +41,6 @@ export default function BuatTagihan() {
     setBills(bills - 1);
   };
 
-  const sweetAlertCall = () => {
-    Swal.fire({
-      title: "Ups!",
-      text: "Kamu harus memasukkan tagihan minimal satu",
-      icon: "error",
-      confirmButtonText: "Okay",
-      width: "300px",
-    });
-  };
-
   const inputTextHandler = (e) => {
     const getInputText = e.target.getAttribute("name");
 
@@ -125,8 +115,8 @@ export default function BuatTagihan() {
           </div>
 
           <div
-            className="flex mt-4 w-10 h-10 bg-gray-100 rounded-md justify-center cursor-pointer ml-2"
-            onClick={bills < 2 ? sweetAlertCall : removeBills}
+            className={bills === 1 ? "hidden" : "flex mt-4 w-10 h-10 bg-gray-100 rounded-md justify-center cursor-pointer ml-2"}
+            onClick={removeBills}
           >
             <div className="border border-dotted border-gray-300 w-8 h-8 rounded-md self-center content-center text-gray-500 text-2xl text-center my-auto">
               -
