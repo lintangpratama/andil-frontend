@@ -1,8 +1,8 @@
-import "styles/globals.css";
 import "styles/custom-swiper.css";
 import "styles/custom-sweetalert.css";
 import "swiper/css";
 import "swiper/css/pagination";
+import "styles/globals.css";
 
 import Head from "next/head";
 import { useRouter } from "next/router";
