@@ -37,24 +37,26 @@ module.exports = {
         "blue-secondary-hover": "rgba(66, 159, 242, 0.3)",
         "search-bg": "#F5F5F5",
         "search-font": "#88888C",
-        "tag": "#3C7564",
+        tag: "#3C7564",
         "blue-icon": "rgba(86, 163, 140, 0.2)",
         "yellow-icon": "rgba(234, 187, 0, 0.2)",
         "gray-icon": "rgba(196, 196, 196, 0.2)",
         "purple-icon": "rgba(188, 133, 243, 0.2)",
         "brown-icon": "rgba(250, 178, 123, 0.2)",
         "gray-history": "rgba(31, 31, 31, 0.7)",
-        "role-tag": "rgba(86, 163, 140, 0.5)"
+        "role-tag": "rgba(86, 163, 140, 0.5)",
+        "bank": "#D0D0D0",
+        "bank-logo": "#F0F0F0"
       },
       fontSize: {
-        "8": "8px",
-        "12": "12px",
+        8: "8px",
+        12: "12px",
       },
       margin: {
         "-0.5": "-2px",
         "1/5": "20%",
         "1/12": "8.333333%",
-        "8": "30px",
+        8: "30px",
       },
       // Text Color
       textColor: {},
@@ -72,6 +74,7 @@ module.exports = {
       },
       borderRadius: {
         box: "10px",
+        bank: "17px",
       },
     },
     screens: {
