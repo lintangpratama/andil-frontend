@@ -31,7 +31,6 @@ function MyApp({ Component, pageProps }) {
     <>
       <Head>
         <title>Andil — Bantu Kamu Buat #LangsungBayar</title>
-        <link rel="icon" type="image/x-icon" href="andil_logo.svg" />
       </Head>
       <div className="flex flex-col">
         <div className="h-full bg-gray-100">

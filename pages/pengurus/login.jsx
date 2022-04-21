@@ -145,7 +145,7 @@ export default function Login() {
         {/* Button masuk */}
         <div className="mt-3">
           <button className="text-yellow-main bg-white py-3 w-full rounded-full border border-yellow-main">
-            <Link href="/pengurus/lupa-password">Lupa Password?</Link>
+            <Link href="/pengurus/profil/lupa-password">Lupa Password?</Link>
           </button>
         </div>
       </div>
