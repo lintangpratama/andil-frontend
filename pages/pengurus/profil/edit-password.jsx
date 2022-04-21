@@ -51,7 +51,7 @@ export default function EditPassword() {
 
     var config = {
       method: "put",
-      url: `${process.env.NEXT_PUBLIC_API_URL}/auth/change-password?user=pengurus`,
+      url: `${NEXT_PUBLIC_API_URL}/auth/change-password?user=pengurus`,
       headers: headers,
       data: JSON.stringify(inputFields),
     };

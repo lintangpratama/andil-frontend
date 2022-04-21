@@ -69,7 +69,7 @@ export default function Register() {
       };
 
       const req = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/forget-password?user=pengurus`,
+        `${NEXT_PUBLIC_API_URL}/auth/forget-password?user=pengurus`,
         requestOptions
       );
       const res = await req.json();

@@ -44,7 +44,7 @@ export default function Home() {
         redirect: "follow",
       };
 
-      fetch(`${process.env.NEXT_PUBLIC_API_URL}/pengguna", requestOptions)
+      fetch(`${NEXT_PUBLIC_API_URL}/pengguna", requestOptions)
         .then((response) => response.json())
         .then((result) => setUserData(result.data))
         .catch((error) => console.log("error", error));

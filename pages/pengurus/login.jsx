@@ -52,7 +52,7 @@ export default function Login() {
       };
 
       const req = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/login?user=pengurus`,
+        `${NEXT_PUBLIC_API_URL}/auth/login?user=pengurus`,
         requestOptions
       );
       const res = await req.json();
