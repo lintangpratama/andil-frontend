@@ -27,6 +27,7 @@ export default function PilihBank() {
         {/* Description */}
         <div className="mb-10 mt-7">
           <h2>Pilih Metode</h2>
+          <p className="mt-1">Pilih bank yang ingin kamu gunakan untuk mentransfer</p>
         </div>
 
         {/* Bank option section */}

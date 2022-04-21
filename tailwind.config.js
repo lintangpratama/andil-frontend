@@ -46,7 +46,8 @@ module.exports = {
         "gray-history": "rgba(31, 31, 31, 0.7)",
         "role-tag": "rgba(86, 163, 140, 0.5)",
         "bank": "#D0D0D0",
-        "bank-logo": "#F0F0F0"
+        "bank-logo": "#F0F0F0",
+        "blue-icon": "#23A3DF"
       },
       fontSize: {
         8: "8px",
