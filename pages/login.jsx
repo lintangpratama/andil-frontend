@@ -51,8 +51,9 @@ export default function Login() {
         redirect: "follow",
       };
 
+      console.log(process.env.NEXT_PUBLIC_API_URL);
       const req = await fetch(
-        "http://116.193.191.169:3001/api/auth/login?user=pengguna",
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/login?user=pengguna`,
         requestOptions
       );
       const res = await req.json();

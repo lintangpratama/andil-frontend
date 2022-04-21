@@ -52,7 +52,7 @@ export default function Login() {
       };
 
       const req = await fetch(
-        "http://116.193.191.169:3001/api/auth/login?user=pengurus",
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/login?user=pengurus`,
         requestOptions
       );
       const res = await req.json();

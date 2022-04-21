@@ -8,6 +8,7 @@ import SwiperCore, { Pagination } from "swiper";
 import axios from "axios";
 
 export async function getServerSideProps(context) {
+  console.log(process.env.API_URL);
   const { token, token_pengurus } = await authPage(context);
   if (token && token_pengurus) {
     return {

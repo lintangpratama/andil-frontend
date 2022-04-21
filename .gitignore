@@ -34,4 +34,7 @@ yarn-error.log*
 .vercel
 
 # github
-.github
+/.github/
+
+# env
+.env

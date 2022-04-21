@@ -35,7 +35,7 @@ export default function Profil() {
     const dataFetch = async () => {
       var config = {
         method: "get",
-        url: "http://116.193.191.169:3001/api/pengguna",
+        url: `${process.env.NEXT_PUBLIC_API_URL}/pengguna`,
         headers: {
           Authorization:
             "Bearer " + Cookies.get('token'),

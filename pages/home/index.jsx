@@ -44,7 +44,7 @@ export default function Home() {
         redirect: "follow",
       };
 
-      fetch("http://116.193.191.169:3001/api/pengguna", requestOptions)
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/pengguna", requestOptions)
         .then((response) => response.json())
         .then((result) => setUserData(result.data))
         .catch((error) => console.log("error", error));

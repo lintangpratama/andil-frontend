@@ -48,7 +48,7 @@ export default function Home(props) {
       };
 
       const req = await fetch(
-        "http://116.193.191.169:3001/api/pengurus",
+        `${process.env.NEXT_PUBLIC_API_URL}/pengurus`,
         requestOptions
       );
       const res = await req.json();

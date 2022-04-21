@@ -63,7 +63,7 @@ export default function Register() {
 
     try {
       const api =
-        "http://116.193.191.169:3001/api/auth/forget-password?user=pengguna";
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/forget-password?user=pengguna`;
       const request = await axios.post(api, JSON.stringify(inputFields));
       console.log(request);
       if (request.status === 200) {
