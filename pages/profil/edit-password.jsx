@@ -57,7 +57,7 @@ export default function EditPassword() {
     };
 
     fetch(
-      `${NEXT_PUBLIC_API_URL}/auth/change-password?user=pengguna`,
+      `${process.env.NEXT_PUBLIC_API_URL}/auth/change-password?user=pengguna`,
       requestOptions
     )
       .then((response) => response.json())

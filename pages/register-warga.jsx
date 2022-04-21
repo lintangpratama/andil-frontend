@@ -87,7 +87,7 @@ export default function Register() {
     e.preventDefault();
 
     try {
-      const api = `${NEXT_PUBLIC_API_URL}/auth/register?user=pengguna`;
+      const api = `${process.env.NEXT_PUBLIC_API_URL}/auth/register?user=pengguna`;
       const request = await axios.post(api, JSON.stringify(inputFields));
       console.log(request);
       if (request.status === 200) {

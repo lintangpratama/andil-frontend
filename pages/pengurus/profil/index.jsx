@@ -44,7 +44,7 @@ export default function Profil() {
       };
 
       const req = await fetch(
-        `${NEXT_PUBLIC_API_URL}/pengurus`,
+        `${process.env.NEXT_PUBLIC_API_URL}/pengurus`,
         requestOptions
       );
       const res = await req.json();

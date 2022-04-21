@@ -114,7 +114,7 @@ export default function EditProfil() {
       redirect: "follow",
     };
 
-    fetch(`${NEXT_PUBLIC_API_URL}/pengguna/profile`, requestOptions)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/pengguna/profile`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
         console.log(result);

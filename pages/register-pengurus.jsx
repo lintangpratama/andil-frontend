@@ -73,7 +73,7 @@ export default function Register() {
     e.preventDefault();
 
     try {
-      const api = `${NEXT_PUBLIC_API_URL}/auth/register?user=pengurus`;
+      const api = `${process.env.NEXT_PUBLIC_API_URL}/auth/register?user=pengurus`;
       const request = await axios.post(api, JSON.stringify(inputFields));
       if (request.status === 200) {
         Swal.fire({

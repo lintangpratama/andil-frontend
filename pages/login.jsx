@@ -51,9 +51,9 @@ export default function Login() {
         redirect: "follow",
       };
 
-      console.log(NEXT_PUBLIC_API_URL);
+      console.log(process.env.NEXT_PUBLIC_API_URL);
       const req = await fetch(
-        `${NEXT_PUBLIC_API_URL}/auth/login?user=pengguna`,
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/login?user=pengguna`,
         requestOptions
       );
       const res = await req.json();
