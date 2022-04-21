@@ -112,9 +112,11 @@ export default function Home(props) {
             </p>
           </div>
           <div className="my-auto ml-auto mr-3.5">
-            <button className="py-0.5 px-2.5 border my-auto border-yellow-main text-yellow-main rounded-full">
-              Isi Saldo
-            </button>
+            <Link href="/saldo" passHref={true}>
+              <button className="py-0.5 px-2.5 border my-auto border-yellow-main text-yellow-main rounded-full">
+                Isi Saldo
+              </button>
+            </Link>
           </div>
         </div>
 

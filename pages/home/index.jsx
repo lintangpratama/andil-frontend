@@ -15,31 +15,28 @@ export async function getServerSideProps(context) {
     return {
       redirect: {
         permanent: false,
-        destination: "/login-choose"
-      }
-    }
+        destination: "/login-choose",
+      },
+    };
   }
-  
+
   return {
-    props: {}
-  }
+    props: {},
+  };
 }
 
 export default function Home() {
   SwiperCore.use([FreeMode]);
   const [userData, setUserData] = useState({
     jumlah_saldo: 0,
-    nama: ""
+    nama: "",
   });
   const monthlyBill = 100000;
 
   useEffect(() => {
     const dataFetch = async () => {
       const headers = new Headers();
-      headers.append(
-        "Authorization",
-        "Bearer " + Cookies.get('token')
-      );
+      headers.append("Authorization", "Bearer " + Cookies.get("token"));
 
       const requestOptions = {
         method: "GET",
@@ -52,7 +49,7 @@ export default function Home() {
         .then((result) => setUserData(result.data))
         .catch((error) => console.log("error", error));
     };
-    console.log(Cookies.get('token'));
+    console.log(Cookies.get("token"));
     dataFetch();
   }, []);
 
@@ -81,7 +78,8 @@ export default function Home() {
           <div className="mt-3">
             <h2 className="text-white">Halo, {userData.nama}!</h2>
             <p className="mt-1 text-white">
-              Tagihan kamu bulan ini adalah sebesar <br /> {rupiahFormat(monthlyBill)}
+              Tagihan kamu bulan ini adalah sebesar <br />{" "}
+              {rupiahFormat(monthlyBill)}
             </p>
             <button className="text-yellow-main border border-yellow-main bg-white py-1 px-4 rounded-full mt-3">
               <Link href="/transaksi/tagihan" passHref={true}>
@@ -102,15 +100,19 @@ export default function Home() {
                 <img src="logo.svg" className="w-8 inline-block -mt-0.5" />
               </span>
             </h4>
-            <h2 className="text-secondary mt-0.5">{rupiahFormat(userData.jumlah_saldo)}</h2>
+            <h2 className="text-secondary mt-0.5">
+              {rupiahFormat(userData.jumlah_saldo)}
+            </h2>
             <p className="subparagraph mt-1.5 underline text-secondary">
               <a>Lihat histori transaksi</a>
             </p>
           </div>
           <div className="my-auto ml-auto mr-3.5">
-            <button className="py-0.5 px-2.5 border my-auto border-yellow-main text-yellow-main rounded-full">
-              Isi Saldo
-            </button>
+            <Link href="/saldo" passHref={true}>
+              <button className="py-0.5 px-2.5 border my-auto border-yellow-main text-yellow-main rounded-full">
+                Isi Saldo
+              </button>
+            </Link>
           </div>
         </div>
 

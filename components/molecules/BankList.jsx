@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function BankList(props) {
   const { name, image } = props;
   return (
-    <Link href="./bca">
+    <Link href="./bca" passHref={true}>
       <div
         key={name}
         className="flex rounded-bank border border-border-bank mb-2.5 cursor-pointer"

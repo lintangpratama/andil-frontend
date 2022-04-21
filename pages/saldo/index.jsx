@@ -24,7 +24,7 @@ export default function Saldo() {
         <div className="flex mt-7">
           {/* Button masuk */}
           <div className="w-1/2 mr-2">
-            <Link href="/login-choose" passHref={true}>
+            <Link href="saldo/tambah-saldo/pilih-bank" passHref={true}>
               <button className="text-white bg-yellow-main py-3.5 w-full rounded-full">
                 Isi Saldo
               </button>
@@ -32,7 +32,7 @@ export default function Saldo() {
           </div>
           {/* Button masuk */}
           <div className="w-1/2 ml-2">
-            <Link href="/login-choose" passHref={true}>
+            <Link href="#" passHref={true}>
               <button className="text-white bg-yellow-main py-3.5 w-full rounded-full">
                 Tarik Saldo
               </button>
