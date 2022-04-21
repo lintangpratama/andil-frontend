@@ -158,7 +158,7 @@ export default function Register() {
     const getAllProvince = async () => {
       try {
         const response = await axios.get(
-          "http://www.emsifa.com/api-wilayah-indonesia/api/provinces.json"
+          "https://bimantaradev.github.io/api-wilayah-indonesia/api/provinces.json"
         );
         const data = response.data;
         setProvinsiOption({
@@ -178,7 +178,7 @@ export default function Register() {
     const getAllKabupaten = async () => {
       try {
         const response = await axios.get(
-          `http://www.emsifa.com/api-wilayah-indonesia/api/regencies/${provinsiOption.id}.json`
+          `https://bimantaradev.github.io/api-wilayah-indonesia/api/regencies/${provinsiOption.id}.json`
         );
         const data = response.data;
         setKabupatenOption({
@@ -197,7 +197,7 @@ export default function Register() {
     const getAllKecamatan = async () => {
       try {
         const response = await axios.get(
-          `http://www.emsifa.com/api-wilayah-indonesia/api/districts/${kabupatenOption.id}.json`
+          `https://bimantaradev.github.io/api-wilayah-indonesia/api/districts/${kabupatenOption.id}.json`
         );
         const data = response.data;
         setKecamatanOption({
@@ -216,7 +216,7 @@ export default function Register() {
     const getAllKelurahan = async () => {
       try {
         const response = await axios.get(
-          `http://www.emsifa.com/api-wilayah-indonesia/api/villages/${kecamatanOption.id}.json`
+          `https://bimantaradev.github.io/api-wilayah-indonesia/api/villages/${kecamatanOption.id}.json`
         );
         const data = response.data;
         setKelurahanOption({
